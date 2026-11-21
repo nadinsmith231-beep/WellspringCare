@@ -1,0 +1,2523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0E7C7B" />
+<title>WellspringCare Hospital — Interview with Carla Bates</title>
+<meta name="description" content="WellspringCare Hospital — Carla Bates is the interviewer currently accepting remote-role interviews on Microsoft Teams. Robert Zilkoski and Sonnie Griswold are fully booked." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root{
+  --ink:#0A2A3B;
+  --ink-soft:#3C5A6B;
+  --muted:#6B8494;
+
+  --brand:#0E7C7B;
+  --brand-dark:#0A5C5B;
+  --brand-light:#14B8A6;
+  --sky:#2F80ED;
+  --coral:#FF6B5B;
+  --amber:#FFB020;
+  --violet:#7C5CFF;
+  --mint:#22C55E;
+  --danger:#B42318;
+
+  --bg:#F5FAFB;
+  --surface:#FFFFFF;
+  --line:#DCEAEE;
+
+  --radius-sm:12px;
+  --radius:18px;
+  --radius-lg:26px;
+
+  --shadow-sm:0 2px 10px rgba(10,42,59,.06);
+  --shadow:0 20px 45px -22px rgba(10,42,59,.38);
+  --shadow-lg:0 40px 80px -40px rgba(10,42,59,.55);
+
+  --max:1180px;
+  --header-h:74px;
+  --banner-h:46px;
+  --drawer-w:min(380px, 88vw);
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  font-family:'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+body.nav-open{ overflow:hidden; }
+
+h1,h2,h3,h4{ margin:0 0 .55em; line-height:1.15; letter-spacing:-.02em; font-weight:800; }
+h1{ font-size:clamp(2.2rem, 5vw, 3.75rem); }
+h2{ font-size:clamp(1.7rem, 3.4vw, 2.5rem); }
+h3{ font-size:clamp(1.1rem, 1.8vw, 1.3rem); }
+p{ margin:0 0 1rem; }
+a{ color:inherit; text-decoration:none; }
+ul{ margin:0; padding:0; list-style:none; }
+img,svg{ display:block; max-width:100%; }
+button{ font:inherit; }
+input,select,textarea{ font:inherit; color:inherit; }
+
+::selection{ background:rgba(20,184,166,.3); }
+
+:focus-visible{
+  outline:3px solid rgba(47,128,237,.55);
+  outline-offset:3px;
+  border-radius:6px;
+}
+
+.skip-link{
+  position:absolute; left:1rem; top:-100px; z-index:999;
+  background:var(--ink); color:#fff; padding:.75rem 1.25rem;
+  border-radius:0 0 12px 12px; font-weight:700; transition:top .25s;
+}
+.skip-link:focus{ top:0; }
+
+.hp-field{
+  position:absolute !important;
+  left:-9999px !important;
+  top:auto !important;
+  width:1px !important;
+  height:1px !important;
+  overflow:hidden !important;
+  opacity:0 !important;
+  pointer-events:none !important;
+}
+
+/* ============================================================
+   3. LAYOUT HELPERS
+   ============================================================ */
+.container{ width:min(100% - 2.5rem, var(--max)); margin-inline:auto; }
+section{
+  padding:clamp(3.5rem, 7vw, 6rem) 0;
+  scroll-margin-top:calc(var(--banner-h) + var(--header-h) + 12px);
+}
+
+.section-head{ max-width:740px; margin:0 auto clamp(2.25rem, 4vw, 3.25rem); text-align:center; }
+.section-head p{ color:var(--muted); font-size:1.05rem; margin:0; }
+.section-head--left{ margin-inline:0; text-align:left; }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.5rem;
+  font-size:.75rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--brand-dark); background:rgba(20,184,166,.14);
+  padding:.45rem .95rem; border-radius:999px; margin-bottom:1rem;
+}
+.eyebrow--coral{ color:#B23A2E; background:rgba(255,107,91,.16); }
+.eyebrow--amber{ color:#8A5B00; background:rgba(255,176,32,.2); }
+.eyebrow--light{ color:#CFF5F1; background:rgba(255,255,255,.14); }
+
+.gradient-text{
+  background:linear-gradient(115deg, var(--brand) 0%, var(--brand-light) 45%, var(--sky) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ============================================================
+   4. BUTTONS
+   ============================================================ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
+  padding:.85rem 1.45rem; border-radius:999px; border:1px solid transparent;
+  font-weight:700; font-size:.95rem; cursor:pointer; white-space:nowrap;
+  transition:transform .25s var(--ease), box-shadow .25s var(--ease), background .25s, color .25s, border-color .25s, opacity .25s;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn:active{ transform:translateY(0); }
+.btn:disabled{ cursor:progress; transform:none; opacity:.72; }
+.btn svg{ width:18px; height:18px; flex:none; }
+
+.btn--primary{
+  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+  color:#fff; box-shadow:0 14px 28px -14px rgba(14,124,123,.95);
+}
+.btn--primary:hover{ box-shadow:0 20px 34px -14px rgba(14,124,123,1); }
+
+.btn--accent{
+  background:linear-gradient(135deg, #FF6B5B 0%, #FF9A6B 100%);
+  color:#fff; box-shadow:0 14px 28px -14px rgba(255,107,91,.95);
+}
+
+.btn--ghost{
+  background:#fff; color:var(--ink); border-color:var(--line); box-shadow:var(--shadow-sm);
+}
+.btn--ghost:hover{ border-color:var(--brand-light); color:var(--brand-dark); }
+
+.btn--light{
+  background:rgba(255,255,255,.12); color:#fff; border-color:rgba(255,255,255,.35);
+  backdrop-filter:blur(6px);
+}
+.btn--light:hover{ background:rgba(255,255,255,.22); }
+
+.btn--sm{ padding:.62rem 1.1rem; font-size:.86rem; }
+.btn--block{ width:100%; }
+
+/* ============================================================
+   5. NOTICE BANNER
+   ============================================================ */
+.notice-banner{
+  position:sticky; top:0; z-index:110;
+  display:flex; align-items:center;
+  height:var(--banner-h);
+  background:linear-gradient(90deg,#7F1D1D 0%, #B42318 42%, #D92D20 100%);
+  color:#fff;
+  overflow:hidden;
+  border-bottom:1px solid rgba(0,0,0,.28);
+  box-shadow:0 10px 24px -16px rgba(180,35,24,.95);
+}
+
+.notice-banner__label{
+  flex:none; align-self:stretch;
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:0 1.05rem;
+  background:rgba(0,0,0,.3);
+  font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+  white-space:nowrap;
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.18);
+}
+.notice-banner__label svg{ width:15px; height:15px; flex:none; }
+
+.notice-banner__viewport{
+  flex:1 1 auto; min-width:0; height:100%;
+  display:flex; align-items:center;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+  mask-image:linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+}
+
+.notice-banner__track{
+  display:inline-flex; align-items:center;
+  white-space:nowrap; will-change:transform;
+  animation:noticeScroll 46s linear infinite;
+}
+.notice-banner:hover .notice-banner__track,
+.notice-banner:focus-within .notice-banner__track{ animation-play-state:paused; }
+
+.notice-banner__item{
+  position:relative;
+  display:inline-block;
+  padding-right:3.25rem;
+  font-size:.84rem; font-weight:600; letter-spacing:.01em;
+  color:rgba(255,255,255,.94);
+}
+.notice-banner__item strong{ font-weight:800; color:#fff; }
+.notice-banner__item::after{
+  content:""; position:absolute; right:1.3rem; top:50%;
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(255,255,255,.6);
+  transform:translateY(-50%);
+}
+
+@keyframes noticeScroll{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* ============================================================
+   6. HEADER
+   ============================================================ */
+.header{
+  position:sticky; top:var(--banner-h); z-index:100;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:blur(16px) saturate(1.6);
+  -webkit-backdrop-filter:blur(16px) saturate(1.6);
+  border-bottom:1px solid rgba(220,234,238,.9);
+  transition:box-shadow .3s, background .3s;
+}
+.header.is-scrolled{ box-shadow:0 10px 30px -18px rgba(10,42,59,.5); background:rgba(255,255,255,.94); }
+
+.header__inner{ display:flex; align-items:center; gap:1rem; height:var(--header-h); }
+
+.brand{ display:flex; align-items:center; gap:.65rem; flex:none; }
+.brand__mark{
+  width:42px; height:42px; border-radius:13px; flex:none;
+  display:grid; place-items:center; color:#fff;
+  background:linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 55%, var(--sky) 120%);
+  box-shadow:0 10px 20px -10px rgba(14,124,123,.9);
+}
+.brand__mark svg{ width:22px; height:22px; }
+.brand__text{ display:flex; flex-direction:column; line-height:1.1; }
+.brand__text strong{ font-size:1.06rem; letter-spacing:-.02em; }
+.brand__text small{ font-size:.68rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:700; }
+
+.header__end{ margin-left:auto; display:flex; align-items:center; gap:1rem; min-width:0; }
+.header__divider{ width:1px; height:24px; flex:none; background:var(--line); margin:0 .15rem; }
+
+.nav{ display:block; }
+.nav__list{ display:flex; align-items:center; gap:.15rem; }
+.nav__link{
+  display:inline-block; padding:.55rem .72rem; border-radius:10px;
+  font-size:.9rem; font-weight:600; color:var(--ink-soft);
+  transition:color .2s, background .2s; white-space:nowrap;
+}
+.nav__link:hover{ color:var(--brand-dark); background:rgba(20,184,166,.1); }
+.nav__link.is-active{ color:var(--brand-dark); background:rgba(20,184,166,.14); font-weight:800; }
+
+.header__actions{ display:flex; align-items:center; gap:.7rem; flex:none; }
+
+.header__phone{
+  display:flex; align-items:center; gap:.5rem; font-weight:800; font-size:.86rem;
+  color:var(--ink); padding:.4rem .1rem;
+}
+.header__phone svg{ width:17px; height:17px; color:var(--coral); }
+.header__phone span small{ display:block; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:800; line-height:1; }
+
+.header__cta svg{ display:none; }
+.header__cta-text{ display:inline; }
+
+.menu-btn{
+  display:none; width:44px; height:44px; border-radius:12px;
+  border:1px solid var(--line); background:#fff; cursor:pointer;
+  align-items:center; justify-content:center; flex-direction:column; gap:5px;
+  flex:none;
+}
+.menu-btn span{
+  display:block; width:20px; height:2px; border-radius:2px; background:var(--ink);
+  transition:transform .3s var(--ease), opacity .2s;
+}
+.menu-btn.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.menu-btn.is-open span:nth-child(2){ opacity:0; }
+.menu-btn.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* ============================================================
+   7. HERO
+   ============================================================ */
+.hero{
+  position:relative; overflow:hidden;
+  padding:clamp(2.75rem, 5.5vw, 4.5rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+  background:
+    radial-gradient(900px 520px at 92% -12%, rgba(20,184,166,.24), transparent 62%),
+    radial-gradient(760px 460px at 2% 6%, rgba(47,128,237,.16), transparent 62%),
+    radial-gradient(620px 420px at 60% 110%, rgba(255,176,32,.14), transparent 65%),
+    linear-gradient(180deg,#F1FAFA 0%, #F6FBFF 55%, #FFFFFF 100%);
+}
+.hero::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(rgba(10,42,59,.055) 1px, transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 20%, #000 20%, transparent 72%);
+  mask-image:radial-gradient(ellipse at 50% 20%, #000 20%, transparent 72%);
+}
+.hero__inner{
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1.05fr .95fr;
+  gap:clamp(2rem, 5vw, 4rem); align-items:center;
+}
+
+.hero__badges{ display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.35rem; }
+.chip{
+  display:inline-flex; align-items:center; gap:.45rem;
+  background:#fff; border:1px solid var(--line); border-radius:999px;
+  padding:.4rem .85rem; font-size:.78rem; font-weight:700; color:var(--ink-soft);
+  box-shadow:var(--shadow-sm);
+}
+.chip .dot{ width:8px; height:8px; border-radius:50%; background:var(--mint); box-shadow:0 0 0 3px rgba(34,197,94,.18); }
+.chip--live{ color:#0B6B3A; }
+.chip--live .dot{ animation:pulseDot 1.8s infinite; }
+@keyframes pulseDot{
+  0%,100%{ box-shadow:0 0 0 0 rgba(34,197,94,.45); }
+  50%{ box-shadow:0 0 0 7px rgba(34,197,94,0); }
+}
+
+.hero__title{ margin-bottom:1.1rem; }
+.hero__lead{ font-size:clamp(1rem, 1.4vw, 1.12rem); color:var(--ink-soft); max-width:56ch; margin-bottom:1.9rem; }
+.hero__cta{ display:flex; flex-wrap:wrap; gap:.8rem; margin-bottom:2.25rem; }
+.hero__trust{ display:flex; flex-wrap:wrap; gap:1.75rem; padding-top:1.5rem; border-top:1px dashed rgba(10,42,59,.16); }
+.hero__trust div strong{ display:block; font-size:1.32rem; letter-spacing:-.02em; }
+.hero__trust div span{ font-size:.78rem; color:var(--muted); font-weight:600; letter-spacing:.02em; }
+
+.hero__visual{ position:relative; min-height:470px; }
+
+.hero-card{
+  position:relative; border-radius:var(--radius-lg); overflow:hidden;
+  background:linear-gradient(150deg,#0A5C5B 0%, #0E7C7B 45%, #14B8A6 100%);
+  box-shadow:var(--shadow-lg); color:#fff; padding:0;
+}
+.hero-card__art{
+  position:relative; height:190px; overflow:hidden;
+  background:radial-gradient(400px 200px at 20% 10%, rgba(255,255,255,.22), transparent 70%);
+}
+.hero-card__art svg{ position:absolute; inset:0; width:100%; height:100%; }
+.ecg-line{
+  stroke:#B8FFF4; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;
+  stroke-dasharray:1200; stroke-dashoffset:1200;
+  animation:ecgDraw 4s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(184,255,244,.85));
+}
+@keyframes ecgDraw{
+  0%{ stroke-dashoffset:1200; }
+  70%{ stroke-dashoffset:0; }
+  100%{ stroke-dashoffset:-1200; }
+}
+.hero-card__body{ padding:1.5rem 1.6rem 1.75rem; }
+.hero-card__body h3{ color:#fff; margin-bottom:.4rem; font-size:1.32rem; }
+.hero-card__body p{ color:rgba(255,255,255,.82); font-size:.92rem; margin:0; }
+
+.pill-live{
+  display:inline-flex; align-items:center; gap:.45rem;
+  background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3);
+  color:#fff; font-size:.72rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase;
+  padding:.35rem .75rem; border-radius:999px; margin-bottom:.85rem;
+}
+.pill-live .dot{ width:7px; height:7px; border-radius:50%; background:#7CFFC4; animation:pulseDot 1.8s infinite; }
+
+.float-card{
+  position:absolute; background:#fff; border-radius:16px; padding:.85rem 1.05rem;
+  box-shadow:var(--shadow); border:1px solid var(--line);
+  display:flex; align-items:center; gap:.7rem; z-index:3;
+}
+.float-card__icon{ width:38px; height:38px; border-radius:11px; display:grid; place-items:center; flex:none; color:#fff; }
+.float-card__icon svg{ width:19px; height:19px; }
+.float-card strong{ display:block; font-size:1.05rem; line-height:1.1; letter-spacing:-.02em; }
+.float-card span{ font-size:.72rem; color:var(--muted); font-weight:700; }
+
+.float-card--a{ top:8px; left:-26px; animation:floatY 6s ease-in-out infinite; }
+.float-card--a .float-card__icon{ background:linear-gradient(135deg,#FF6B5B,#FF9A6B); }
+.float-card--b{ bottom:6px; right:-22px; animation:floatY 7s ease-in-out infinite .8s; }
+.float-card--b .float-card__icon{ background:linear-gradient(135deg,#2F80ED,#7C5CFF); }
+
+@keyframes floatY{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-12px); }
+}
+
+/* ============================================================
+   8. HIRING ALERT BAND
+   ============================================================ */
+.hiring{ padding-top:clamp(2rem, 4vw, 3rem); }
+.hiring__card{
+  position:relative; overflow:hidden;
+  border-radius:var(--radius-lg);
+  background:linear-gradient(130deg,#0A2A3B 0%, #0D3B4E 45%, #10556A 100%);
+  color:#fff; padding:clamp(1.75rem, 4vw, 3rem);
+  box-shadow:var(--shadow-lg);
+}
+.hiring__card::before{
+  content:""; position:absolute; width:420px; height:420px; border-radius:50%;
+  right:-140px; top:-180px; background:radial-gradient(circle, rgba(20,184,166,.45), transparent 68%);
+}
+.hiring__card::after{
+  content:""; position:absolute; width:340px; height:340px; border-radius:50%;
+  left:-120px; bottom:-180px; background:radial-gradient(circle, rgba(47,128,237,.4), transparent 68%);
+}
+.hiring__grid{ position:relative; z-index:2; display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
+.hiring h2{ color:#fff; font-size:clamp(1.5rem, 2.6vw, 2rem); }
+.hiring p{ color:rgba(255,255,255,.78); font-size:.96rem; }
+.hiring__actions{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.5rem; }
+
+.hiring__availability-note{
+  display:flex; align-items:flex-start; gap:.55rem;
+  font-size:.82rem; color:rgba(255,255,255,.78);
+  margin:.95rem 0 0; line-height:1.55;
+}
+.hiring__availability-note .status-dot{
+  width:8px; height:8px; border-radius:50%; flex:none; margin-top:8px;
+  background:#7CFFC4; box-shadow:0 0 0 3px rgba(124,255,196,.22);
+  animation:pulseDot 1.8s infinite;
+}
+.hiring__availability-note strong{ color:#fff; }
+
+.code-box{
+  display:block; width:100%; text-align:left; cursor:pointer;
+  background:rgba(255,255,255,.08);
+  border:1px dashed rgba(255,255,255,.35);
+  border-radius:var(--radius);
+  padding:1.15rem 1.3rem; margin:0 0 1.15rem;
+  font:inherit; color:#fff;
+  transition:background .25s, border-color .25s, transform .2s var(--ease), box-shadow .25s;
+}
+.code-box:hover{ background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.6); box-shadow:0 18px 34px -22px rgba(0,0,0,.8); }
+.code-box:active{ transform:translateY(1px); }
+.code-box__label{ display:block; font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.62); font-weight:800; margin-bottom:.35rem; }
+.code-box__row{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.code-box strong{
+  font-size:clamp(1.5rem, 3vw, 1.85rem); letter-spacing:.14em; font-weight:800;
+  background:linear-gradient(90deg,#7CFFC4,#7EE0FF);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.code-box__hint{ display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; font-weight:800; letter-spacing:.02em; color:rgba(255,255,255,.65); transition:color .25s; }
+.code-box__hint svg{ width:15px; height:15px; }
+.code-box:hover .code-box__hint{ color:#7CFFC4; }
+.code-box.is-copied{ border-color:#7CFFC4; border-style:solid; background:rgba(124,255,196,.14); }
+.code-box.is-copied .code-box__hint{ color:#7CFFC4; }
+
+.managers-heading{ font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; font-weight:800; color:rgba(255,255,255,.6); margin:0 0 .65rem; }
+.managers{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:1.25rem; }
+
+.manager-chip{
+  display:flex; align-items:center; gap:.65rem;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  padding:.55rem .8rem .55rem .55rem;
+  border-radius:14px;
+  font-size:.86rem; font-weight:700; color:#fff;
+  transition:background .25s, border-color .25s, transform .2s var(--ease);
+}
+.manager-chip__name{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.manager-chip i{ width:28px; height:28px; border-radius:50%; display:grid; place-items:center; flex:none; font-style:normal; font-size:.7rem; font-weight:800; color:#062A2A; background:linear-gradient(135deg,#7CFFC4,#7EE0FF); }
+.manager-chip__status{ flex:none; display:inline-flex; align-items:center; gap:.35rem; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:.24rem .55rem; border-radius:999px; font-weight:800; white-space:nowrap; }
+.manager-chip__status .dot{ width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+.manager-chip--available{ background:rgba(124,255,196,.14); border-color:rgba(124,255,196,.55); cursor:pointer; }
+.manager-chip--available:hover{ background:rgba(124,255,196,.24); border-color:#7CFFC4; transform:translateY(-1px); }
+.manager-chip--available .manager-chip__status{ background:#7CFFC4; color:#062A2A; }
+.manager-chip--available .manager-chip__status .dot{ animation:pulseDot 1.8s infinite; }
+.manager-chip__arrow{ width:14px; height:14px; flex:none; color:#7CFFC4; opacity:.9; }
+
+.manager-chip--busy{ opacity:.62; cursor:not-allowed; }
+.manager-chip--busy .manager-chip__status{ background:rgba(255,176,32,.28); color:#FFD98A; }
+
+.warn{
+  display:flex; gap:.8rem; align-items:flex-start;
+  background:rgba(255,176,32,.12); border:1px solid rgba(255,176,32,.42);
+  border-radius:14px; padding:.95rem 1.1rem; font-size:.86rem; line-height:1.55;
+  color:#FFE9BC;
+}
+.warn svg{ width:20px; height:20px; flex:none; color:#FFB020; margin-top:2px; }
+.warn strong{ color:#FFD98A; }
+.warn a{ color:#FFD98A; text-decoration:underline; text-underline-offset:2px; }
+
+/* ============================================================
+   9. ABOUT
+   ============================================================ */
+.about{ background:#fff; }
+.about__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:start; }
+.about__lead{ font-size:1.06rem; color:var(--ink-soft); }
+
+.mini-stats{ display:flex; gap:1rem; margin:1.75rem 0 0; }
+.mini-stat{ flex:1; background:linear-gradient(160deg,#F2FBFA,#FFFFFF); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow-sm); }
+.mini-stat strong{ display:block; font-size:1.6rem; letter-spacing:-.03em; color:var(--brand-dark); }
+.mini-stat span{ font-size:.78rem; color:var(--muted); font-weight:700; }
+
+.values-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.value-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.35rem 1.25rem; box-shadow:var(--shadow-sm);
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+  position:relative; overflow:hidden;
+}
+.value-card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--brand),var(--brand-light)); opacity:0; transition:opacity .3s; }
+.value-card:hover{ transform:translateY(-5px); box-shadow:var(--shadow); border-color:transparent; }
+.value-card:hover::before{ opacity:1; }
+.value-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; margin-bottom:.9rem; color:#fff; }
+.value-card__icon svg{ width:21px; height:21px; }
+.value-card h4{ font-size:1rem; margin-bottom:.3rem; }
+.value-card p{ font-size:.86rem; color:var(--muted); margin:0; line-height:1.55; }
+
+.info-panel{ margin-top:2rem; border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:var(--shadow-sm); display:grid; grid-template-columns:repeat(3,1fr); }
+.info-panel__item{ padding:1.4rem 1.3rem; border-right:1px solid var(--line); }
+.info-panel__item:last-child{ border-right:0; }
+.info-panel__item h4{ display:flex; align-items:center; gap:.45rem; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.55rem; font-weight:800; }
+.info-panel__item h4 svg{ width:15px; height:15px; color:var(--brand); }
+.info-panel__item p, .info-panel__item a{ font-size:.9rem; color:var(--ink-soft); margin:0; line-height:1.6; }
+.info-panel__item a:hover{ color:var(--brand-dark); }
+
+/* ============================================================
+   10. SERVICES
+   ============================================================ */
+.services{ background:linear-gradient(180deg,#F5FAFB 0%, #EEF7F9 100%); }
+.cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; }
+
+.service-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
+  padding:1.75rem 1.6rem; box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
+}
+.service-card::after{ content:""; position:absolute; right:-60px; top:-60px; width:150px; height:150px; border-radius:50%; background:var(--glow, rgba(20,184,166,.14)); transition:transform .45s var(--ease); }
+.service-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow); border-color:transparent; }
+.service-card:hover::after{ transform:scale(1.5); }
+
+.icon-tile{ width:56px; height:56px; border-radius:17px; display:grid; place-items:center; color:#fff; margin-bottom:1.15rem; position:relative; z-index:2; background:linear-gradient(135deg, var(--tile-a), var(--tile-b)); box-shadow:0 14px 26px -14px var(--tile-a); }
+.icon-tile svg{ width:26px; height:26px; }
+
+.service-card h3{ position:relative; z-index:2; margin-bottom:.45rem; }
+.service-card p{ font-size:.92rem; color:var(--muted); margin:0; position:relative; z-index:2; }
+.service-card__link{ display:inline-flex; align-items:center; gap:.35rem; margin-top:1.1rem; font-size:.85rem; font-weight:800; color:var(--brand-dark); position:relative; z-index:2; }
+.service-card__link svg{ width:15px; height:15px; transition:transform .25s; }
+.service-card:hover .service-card__link svg{ transform:translateX(4px); }
+
+/* ============================================================
+   11. STATS BAND
+   ============================================================ */
+.stats-band{
+  padding:clamp(2.5rem,5vw,3.5rem) 0;
+  background:
+    radial-gradient(600px 300px at 12% 0%, rgba(20,184,166,.35), transparent 65%),
+    radial-gradient(600px 300px at 88% 100%, rgba(47,128,237,.35), transparent 65%),
+    linear-gradient(120deg,#0A2A3B,#0D4155 55%, #0A5C5B);
+  color:#fff;
+}
+.stats-band__inner{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; text-align:center; }
+.stat__num{
+  display:block; font-size:clamp(1.9rem, 4vw, 2.9rem); font-weight:800; letter-spacing:-.03em;
+  background:linear-gradient(180deg,#FFFFFF,#9EF3E7);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  line-height:1.1;
+}
+.stat__label{ font-size:.8rem; letter-spacing:.06em; color:rgba(255,255,255,.7); font-weight:700; }
+
+/* ============================================================
+   12. PATIENT CARE
+   ============================================================ */
+.patient-care{ background:#fff; }
+.care-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; }
+
+.care-card{
+  position:relative; border-radius:var(--radius-lg); padding:1.7rem 1.6rem 1.75rem;
+  background:linear-gradient(170deg,#FBFEFE,#F4FAFB);
+  border:1px solid var(--line); overflow:hidden;
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease);
+}
+.care-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); }
+.care-card__num{ position:absolute; right:1.1rem; top:.6rem; font-size:3.4rem; font-weight:800; color:rgba(10,42,59,.05); line-height:1; letter-spacing:-.05em; pointer-events:none; }
+.care-card__icon{ width:46px; height:46px; border-radius:14px; display:grid; place-items:center; color:#fff; margin-bottom:1rem; background:linear-gradient(135deg,var(--tile-a),var(--tile-b)); box-shadow:0 12px 24px -14px var(--tile-a); }
+.care-card__icon svg{ width:22px; height:22px; }
+.care-card h3{ font-size:1.05rem; margin-bottom:.4rem; }
+.care-card p{ font-size:.9rem; color:var(--muted); margin:0; }
+
+/* ============================================================
+   13. CAREERS
+   ============================================================ */
+.careers{ background:linear-gradient(180deg,#FFF8F4 0%, #F5FAFB 45%, #F5FAFB 100%); }
+.jobs-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; margin-bottom:clamp(2.5rem,5vw,4rem); }
+
+.job-card{
+  display:flex; flex-direction:column; background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius-lg); padding:1.7rem 1.6rem; box-shadow:var(--shadow-sm);
+  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
+  position:relative; overflow:hidden;
+}
+.job-card::before{ content:""; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--coral),var(--amber),var(--brand-light)); }
+.job-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow); border-color:transparent; }
+.job-card__top{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; margin-bottom:.9rem; }
+.tag-remote{ display:inline-flex; align-items:center; gap:.35rem; font-size:.72rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:#0B6B3A; background:rgba(34,197,94,.14); padding:.3rem .65rem; border-radius:999px; }
+.tag-remote svg{ width:12px; height:12px; }
+.job-card h3{ font-size:1.15rem; margin-bottom:.5rem; }
+.job-card > p{ font-size:.9rem; color:var(--muted); margin-bottom:1.1rem; }
+.job-meta{ margin-bottom:1.1rem; display:grid; gap:.5rem; }
+.job-meta li{ display:flex; gap:.55rem; font-size:.86rem; color:var(--ink-soft); }
+.job-meta li svg{ width:16px; height:16px; flex:none; color:var(--brand); margin-top:3px; }
+.job-card .btn{ margin-top:auto; }
+
+.job-note{
+  font-size:.82rem; line-height:1.55; color:var(--ink-soft);
+  background:rgba(20,184,166,.09);
+  border:1px solid rgba(20,184,166,.22);
+  border-radius:12px; padding:.65rem .8rem; margin:0 0 1.1rem;
+}
+.job-note a{ font-weight:800; color:var(--brand-dark); text-decoration:underline; text-underline-offset:2px; display:inline-flex; align-items:center; gap:.25rem; }
+.job-note a:hover{ color:var(--brand); }
+.job-note a svg{ width:13px; height:13px; }
+
+.apply-wrap{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
+.apply-intro h3{ font-size:1.4rem; }
+.apply-intro p{ color:var(--muted); font-size:.95rem; }
+.apply-list{ display:grid; gap:.75rem; margin-top:1.5rem; }
+.apply-list li{ display:flex; gap:.65rem; font-size:.9rem; color:var(--ink-soft); align-items:flex-start; }
+.apply-list svg{ width:19px; height:19px; flex:none; color:var(--mint); margin-top:2px; }
+
+.form-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:clamp(1.5rem,3vw,2.25rem); box-shadow:var(--shadow); }
+.form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.field{ display:flex; flex-direction:column; gap:.4rem; }
+.field--full{ grid-column:1 / -1; }
+.field label{ font-size:.82rem; font-weight:800; color:var(--ink-soft); letter-spacing:.01em; }
+.field label .req{ color:var(--coral); }
+.field input,.field select,.field textarea{ width:100%; padding:.8rem .95rem; border:1.5px solid var(--line); border-radius:12px; background:#FBFDFD; font-size:.92rem; transition:border-color .2s, box-shadow .2s, background .2s; }
+.field textarea{ min-height:120px; resize:vertical; }
+.field input:focus,.field select:focus,.field textarea:focus{ outline:none; border-color:var(--brand-light); background:#fff; box-shadow:0 0 0 4px rgba(20,184,166,.15); }
+.field input.is-invalid,.field select.is-invalid,.field textarea.is-invalid{ border-color:var(--danger); background:#FFF7F6; }
+.field .hint{ font-size:.76rem; color:var(--muted); margin:0; }
+.field .err{ font-size:.76rem; color:var(--danger); font-weight:700; display:none; }
+.field .err.show{ display:block; }
+
+.file-drop{ position:relative; display:flex; flex-direction:column; align-items:center; gap:.45rem; border:2px dashed var(--line); border-radius:14px; padding:1.35rem 1rem; background:#FBFDFD; text-align:center; cursor:pointer; transition:border-color .25s, background .25s; }
+.file-drop:hover{ border-color:var(--brand-light); background:#F3FBFA; }
+.file-drop input[type="file"]{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
+.file-drop__icon{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--brand),var(--brand-light)); color:#fff; }
+.file-drop__icon svg{ width:20px; height:20px; }
+.file-drop strong{ font-size:.9rem; }
+.file-drop span{ font-size:.78rem; color:var(--muted); }
+.file-name{ font-size:.8rem; font-weight:800; color:var(--brand-dark); }
+
+/* ============================================================
+   14. FAQ
+   ============================================================ */
+.faq{ max-width:820px; margin-inline:auto; display:grid; gap:.75rem; }
+.faq__item{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; transition:box-shadow .3s, border-color .3s; }
+.faq__item.is-open{ box-shadow:var(--shadow-sm); border-color:rgba(20,184,166,.45); }
+.faq__q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem; background:none; border:0; padding:1.1rem 1.3rem; text-align:left; cursor:pointer; font-weight:700; font-size:.98rem; color:var(--ink); }
+.faq__icon{ width:26px; height:26px; border-radius:50%; flex:none; position:relative; background:rgba(20,184,166,.14); transition:background .3s, transform .3s; }
+.faq__icon::before,.faq__icon::after{ content:""; position:absolute; background:var(--brand-dark); border-radius:2px; left:50%; top:50%; transform:translate(-50%,-50%); }
+.faq__icon::before{ width:11px; height:2px; }
+.faq__icon::after{ width:2px; height:11px; transition:transform .3s, opacity .3s; }
+.faq__item.is-open .faq__icon{ background:var(--brand); transform:rotate(180deg); }
+.faq__item.is-open .faq__icon::before,.faq__item.is-open .faq__icon::after{ background:#fff; }
+.faq__item.is-open .faq__icon::after{ opacity:0; transform:translate(-50%,-50%) rotate(90deg); }
+.faq__a{ max-height:0; overflow:hidden; transition:max-height .38s var(--ease); }
+.faq__a p{ margin:0; padding:0 1.3rem 1.25rem; font-size:.9rem; color:var(--muted); }
+.faq__a a{ color:var(--brand-dark); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+
+/* ============================================================
+   15. VERIFICATION
+   ============================================================ */
+.verification{
+  background:
+    radial-gradient(700px 380px at 85% 0%, rgba(124,92,255,.28), transparent 62%),
+    radial-gradient(600px 340px at 5% 100%, rgba(20,184,166,.28), transparent 62%),
+    linear-gradient(130deg,#071F2B 0%, #0B3448 55%, #0A4A52 100%);
+  color:#fff;
+}
+.verification .section-head p{ color:rgba(255,255,255,.72); }
+.verify-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,2.75rem); align-items:start; }
+
+.verify-panel{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16); border-radius:var(--radius-lg); padding:clamp(1.4rem,3vw,2rem); backdrop-filter:blur(10px); }
+.verify-panel h3{ color:#fff; font-size:1.15rem; margin-bottom:.4rem; }
+.verify-panel > p{ color:rgba(255,255,255,.7); font-size:.9rem; }
+
+.verify-list{ display:grid; gap:.75rem; margin-top:1.25rem; }
+.verify-list li{ display:flex; gap:.7rem; align-items:flex-start; font-size:.88rem; color:rgba(255,255,255,.8); line-height:1.55; }
+.verify-list li svg{ width:18px; height:18px; flex:none; color:#7CFFC4; margin-top:3px; }
+.verify-list li strong{ color:#fff; }
+.verify-list li a{ color:#7CFFC4; text-decoration:underline; }
+
+/* ============================================================
+   16. CONTACT
+   ============================================================ */
+.contact{ background:#fff; }
+.contact-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
+
+.contact-info{ display:grid; gap:1rem; }
+.contact-card{ display:flex; gap:1rem; align-items:flex-start; background:linear-gradient(160deg,#F7FCFC,#FFFFFF); border:1px solid var(--line); border-radius:var(--radius); padding:1.25rem 1.3rem; box-shadow:var(--shadow-sm); transition:transform .3s var(--ease), box-shadow .3s; }
+.contact-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
+.contact-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; flex:none; color:#fff; background:linear-gradient(135deg,var(--tile-a,#0E7C7B),var(--tile-b,#14B8A6)); box-shadow:0 12px 22px -14px var(--tile-a,#0E7C7B); }
+.contact-card__icon svg{ width:21px; height:21px; }
+.contact-card h4{ font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.35rem; }
+.contact-card p, .contact-card a{ font-size:.92rem; color:var(--ink-soft); margin:0; line-height:1.6; }
+.contact-card a:hover{ color:var(--brand-dark); }
+
+.emergency-card{ border-radius:var(--radius); padding:1.35rem 1.4rem; color:#fff; background:linear-gradient(135deg,#FF6B5B,#FF9A6B); box-shadow:0 20px 40px -22px rgba(255,107,91,.95); }
+.emergency-card h4{ font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.85); margin-bottom:.3rem; }
+.emergency-card strong{ display:block; font-size:1.35rem; letter-spacing:-.02em; margin-bottom:.15rem; }
+.emergency-card span{ font-size:.82rem; color:rgba(255,255,255,.9); }
+.emergency-card a{ color:#fff; text-decoration:underline; }
+
+.checkbox-row{ display:flex; gap:.65rem; align-items:flex-start; font-size:.85rem; color:var(--ink-soft); }
+.checkbox-row input{ width:18px; height:18px; margin-top:2px; accent-color:var(--brand); flex:none; }
+.checkbox-row a{ color:var(--brand-dark); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+
+/* ============================================================
+   17. FOOTER
+   ============================================================ */
+.footer{ background:linear-gradient(180deg,#08222F 0%, #061A24 100%); color:rgba(255,255,255,.7); padding:clamp(3rem,6vw,4.5rem) 0 0; }
+.footer__grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(1.75rem,4vw,3rem); }
+.footer .brand__text strong{ color:#fff; }
+.footer .brand__text small{ color:rgba(255,255,255,.45); }
+.footer__about p{ font-size:.88rem; margin-top:1.1rem; max-width:34ch; }
+
+.footer h4{ color:#fff; font-size:.76rem; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; font-weight:800; }
+.footer__links{ display:grid; gap:.55rem; }
+.footer__links a, .footer__links li{ font-size:.88rem; color:rgba(255,255,255,.66); transition:color .2s; }
+.footer__links a:hover{ color:#7CFFC4; }
+
+.footer__contact{ display:grid; gap:.7rem; }
+.footer__contact li{ display:flex; gap:.6rem; font-size:.88rem; align-items:flex-start; }
+.footer__contact svg{ width:16px; height:16px; flex:none; color:var(--brand-light); margin-top:3px; }
+.footer__contact a:hover{ color:#7CFFC4; }
+
+.footer__bottom{ margin-top:clamp(2.25rem,5vw,3.5rem); border-top:1px solid rgba(255,255,255,.1); padding:1.5rem 0; display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between; font-size:.82rem; }
+.footer__legal{ display:flex; flex-wrap:wrap; gap:1.25rem; }
+.footer__legal a:hover{ color:#7CFFC4; }
+
+/* ============================================================
+   18. TOAST
+   ============================================================ */
+.toast{ position:fixed; right:1.25rem; bottom:1.25rem; z-index:300; max-width:360px; padding:1rem 1.2rem; border-radius:14px; background:var(--ink); color:#fff; font-size:.88rem; font-weight:600; line-height:1.5; box-shadow:0 26px 50px -20px rgba(0,0,0,.7); transform:translateY(150%); opacity:0; pointer-events:none; transition:transform .45s var(--ease), opacity .35s; }
+.toast.show{ transform:translateY(0); opacity:1; }
+.toast--ok{ background:linear-gradient(135deg,#0E7C7B,#14B8A6); }
+.toast--bad{ background:linear-gradient(135deg,#B42318,#E14B3A); }
+
+/* ============================================================
+   19. REVEAL
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.is-in{ opacity:1; transform:none; }
+
+/* ============================================================
+   20. RESPONSIVE
+   ============================================================ */
+@media (min-width:1440px){
+  :root{ --max:1280px; }
+  .hero__visual{ min-height:520px; }
+  .hero-card__art{ height:210px; }
+}
+@media (max-width:1199px){
+  .header__phone{ display:none; }
+  .nav__link{ padding:.5rem .6rem; font-size:.86rem; }
+}
+@media (max-width:1023px){
+  :root{ --header-h:68px; }
+  .header__divider{ display:none; }
+  .menu-btn{ display:flex; }
+
+  .nav{
+    position:absolute; top:100%; right:0; width:var(--drawer-w);
+    height:calc(100vh - var(--banner-h) - var(--header-h));
+    max-height:calc(100vh - var(--banner-h) - var(--header-h));
+    background:#fff; border-left:1px solid var(--line);
+    box-shadow:-30px 30px 60px -30px rgba(10,42,59,.35);
+    padding:1.1rem 1.1rem 2rem; overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    transform:translateX(105%); opacity:0; pointer-events:none;
+    transition:transform .35s var(--ease), opacity .25s;
+  }
+  .nav.is-open{ transform:translateX(0); opacity:1; pointer-events:auto; }
+  .nav__list{ flex-direction:column; align-items:stretch; gap:.2rem; }
+  .nav__link{ padding:.85rem 1rem; font-size:.98rem; border-radius:12px; }
+
+  body.nav-open::after{ content:""; position:fixed; inset:calc(var(--banner-h) + var(--header-h)) 0 0 0; background:rgba(10,42,59,.45); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); z-index:50; pointer-events:none; animation:backdropFade .3s var(--ease); }
+
+  .hero__inner{ grid-template-columns:1fr; }
+  .hero__visual{ min-height:0; margin-top:2rem; }
+
+  .about__grid,
+  .hiring__grid,
+  .apply-wrap,
+  .verify-grid,
+  .contact-grid{ grid-template-columns:1fr; }
+
+  .info-panel{ grid-template-columns:1fr; }
+  .info-panel__item{ border-right:0; border-bottom:1px solid var(--line); }
+  .info-panel__item:last-child{ border-bottom:0; }
+
+  .float-card--a{ top:-14px; left:auto; right:8px; }
+  .float-card--b{ bottom:-16px; right:8px; }
+}
+@media (max-width:899px){
+  .cards-grid,
+  .care-grid,
+  .jobs-grid{ grid-template-columns:repeat(2,1fr); }
+  .stats-band__inner{ grid-template-columns:repeat(2,1fr); gap:1.75rem; }
+  .footer__grid{ grid-template-columns:1fr 1fr; }
+  .form-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:767px){
+  :root{ --header-h:64px; }
+  .hero{ padding-top:2rem; }
+  .hero__title{ font-size:clamp(1.9rem, 6.5vw, 2.6rem); }
+  .hero__lead{ font-size:1rem; }
+  .hero__trust{ gap:1.25rem; padding-top:1.25rem; }
+  .hero__trust div strong{ font-size:1.15rem; }
+  .hero__visual{ margin-top:1.5rem; }
+  .hero-card__art{ height:160px; }
+  .footer__bottom{ flex-direction:column; align-items:flex-start; gap:.75rem; }
+  .notice-banner__item{ font-size:.78rem; padding-right:2.5rem; }
+}
+@media (max-width:599px){
+  :root{ --header-h:62px; --banner-h:44px; }
+  .container{ width:min(100% - 1.75rem, var(--max)); }
+  section{ padding:clamp(2.5rem, 8vw, 4rem) 0; }
+  .cards-grid,
+  .care-grid,
+  .jobs-grid,
+  .values-grid{ grid-template-columns:1fr; }
+  .form-grid{ grid-template-columns:1fr; }
+  .mini-stats{ flex-direction:column; }
+  .hiring__actions .btn{ width:100%; }
+  .code-box__row{ flex-direction:column; align-items:flex-start; gap:.5rem; }
+  .hero__cta{ flex-direction:column; }
+  .hero__cta .btn{ width:100%; }
+  .footer__grid{ grid-template-columns:1fr; }
+  .stats-band__inner{ grid-template-columns:repeat(2,1fr); }
+  .notice-banner__label span{ display:none; }
+  .notice-banner__label{ padding:0 .8rem; }
+  .float-card{ padding:.7rem .85rem; }
+  .float-card strong{ font-size:.95rem; }
+  .float-card span{ font-size:.66rem; }
+  .float-card--a{ top:-10px; right:-6px; left:auto; }
+  .float-card--b{ bottom:-12px; right:-6px; }
+  .manager-chip{ font-size:.82rem; }
+  .manager-chip__status{ font-size:.58rem; padding:.22rem .45rem; }
+}
+@media (max-width:479px){
+  :root{ --header-h:60px; --banner-h:42px; }
+  .brand__text small{ display:none; }
+  .brand__mark{ width:38px; height:38px; border-radius:11px; }
+  .brand__mark svg{ width:20px; height:20px; }
+  .brand__text strong{ font-size:.98rem; }
+  .header__actions{ gap:.45rem; }
+  .header__cta{ width:42px; height:42px; padding:0; border-radius:50%; }
+  .header__cta-text{ display:none; }
+  .header__cta svg{ display:block; width:20px; height:20px; }
+  .menu-btn{ width:42px; height:42px; border-radius:11px; }
+  .hero__badges{ gap:.4rem; }
+  .chip{ font-size:.72rem; padding:.35rem .7rem; }
+  .hero__trust div{ flex:1 0 40%; }
+  .code-box strong{ font-size:1.35rem; letter-spacing:.1em; }
+  .code-box__label{ font-size:.66rem; }
+  .section-head h2{ font-size:clamp(1.5rem, 6vw, 2rem); }
+  .manager-chip{ padding:.5rem .65rem .5rem .5rem; }
+  .manager-chip__name{ font-size:.8rem; }
+}
+@media (max-width:359px){
+  :root{ --header-h:58px; }
+  .brand__mark{ width:34px; height:34px; border-radius:10px; }
+  .brand__mark svg{ width:18px; height:18px; }
+  .brand__text strong{ font-size:.92rem; }
+  .header__cta{ display:none; }
+  .menu-btn{ width:40px; height:40px; border-radius:10px; }
+  .hero__badges .chip:nth-child(3){ display:none; }
+  .hero__title{ font-size:1.65rem; }
+  .stats-band__inner{ grid-template-columns:1fr; gap:1.5rem; }
+  .mini-stat{ padding:.9rem 1rem; }
+  .mini-stat strong{ font-size:1.35rem; }
+  .float-card{ display:none; }
+  .manager-chip{ flex-wrap:wrap; gap:.35rem; }
+  .manager-chip__arrow{ display:none; }
+}
+@media (max-height:520px) and (orientation:landscape) and (max-width:1023px){
+  .nav{ height:calc(100vh - var(--header-h) - var(--banner-h)); max-height:calc(100vh - var(--header-h) - var(--banner-h)); }
+}
+@media (hover:none) and (pointer:coarse){
+  .float-card{ animation:none !important; }
+  .btn:hover{ transform:none; }
+  .service-card:hover,
+  .value-card:hover,
+  .care-card:hover,
+  .job-card:hover,
+  .contact-card:hover{ transform:none; }
+}
+@media print{
+  .notice-banner,
+  .header,
+  .footer,
+  .toast,
+  .hero__visual,
+  .float-card,
+  .hero__badges,
+  .menu-btn,
+  .reveal{ display:none !important; opacity:1 !important; transform:none !important; }
+  section{ padding:1rem 0; page-break-inside:avoid; }
+  body{ background:#fff; color:#000; }
+  .hero{ background:#fff; }
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+  .reveal{ opacity:1; transform:none; }
+  .notice-banner__track{ animation:none !important; transform:none !important; width:100%; }
+  .notice-banner__item[aria-hidden="true"]{ display:none; }
+  .notice-banner__item{ display:block; white-space:normal; padding-right:1rem; font-size:.76rem; line-height:1.35; }
+  .notice-banner__item::after{ display:none; }
+  .notice-banner__viewport{ overflow-y:auto; }
+}
+@keyframes backdropFade{ from{ opacity:0; } to{ opacity:1; } }
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ============================================================
+     RED NOTICE BANNER — Carla is the only available interviewer
+     ============================================================ -->
+<div class="notice-banner" role="region" aria-label="Hiring notice">
+  <span class="notice-banner__label">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>
+      <path d="M12 9v4M12 17h.01"/>
+    </svg>
+    <span>Hiring Notice</span>
+  </span>
+
+  <div class="notice-banner__viewport">
+    <div class="notice-banner__track">
+      <span class="notice-banner__item">
+        <strong>Hiring notice:</strong> All interviews are held on Microsoft Teams. <strong>Carla Bates</strong> is currently available and accepting interview sessions — <strong>Robert Zilkoski</strong> and <strong>Sonnie Griswold</strong> are fully booked at this time. Use Carla's interview room only. Be cautious of anyone using another name or contacting you outside Microsoft Teams claiming to represent WellspringCare.
+      </span>
+      <span class="notice-banner__item" aria-hidden="true">
+        <strong>Hiring notice:</strong> All interviews are held on Microsoft Teams. <strong>Carla Bates</strong> is currently available and accepting interview sessions — <strong>Robert Zilkoski</strong> and <strong>Sonnie Griswold</strong> are fully booked at this time. Use Carla's interview room only. Be cautious of anyone using another name or contacting you outside Microsoft Teams claiming to represent WellspringCare.
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="header" id="header">
+  <div class="container header__inner">
+
+    <a href="#home" class="brand" aria-label="WellspringCare Hospital — home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+          <path d="M12 4v16M4 12h16"/>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong>WellspringCare</strong>
+        <small>Hospital</small>
+      </span>
+    </a>
+
+    <div class="header__end">
+
+      <nav class="nav" id="nav" aria-label="Main navigation">
+        <ul class="nav__list">
+          <li><a class="nav__link is-active" href="#home" aria-current="page">Home</a></li>
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#services">Services</a></li>
+          <li><a class="nav__link" href="#patient-care">Patient Care</a></li>
+          <li><a class="nav__link" href="#careers">Careers</a></li>
+          <li><a class="nav__link" href="#contact">Contact</a></li>
+          <li><a class="nav__link" href="verification.html">Verification</a></li>
+        </ul>
+      </nav>
+
+      <span class="header__divider" aria-hidden="true"></span>
+
+      <div class="header__actions">
+        <a class="header__phone" href="tel:+17754195404">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
+          <span>+1 (775) 419-5404<small>24/7 Emergency</small></span>
+        </a>
+
+        <a href="#contact" class="btn btn--primary btn--sm header__cta" aria-label="Schedule Appointment">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"/>
+          </svg>
+          <span class="header__cta-text">Schedule Appointment</span>
+        </a>
+
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="hero__badges">
+          <span class="chip chip--live"><span class="dot"></span> Emergency Department Open</span>
+          <span class="chip">San Diego, California</span>
+          <span class="chip">25 Years of Excellence</span>
+        </div>
+
+        <h1 class="hero__title">Compassionate Care,<br><span class="gradient-text">Advanced Medicine</span></h1>
+
+        <p class="hero__lead">
+          At WellspringCare Hospital, we combine cutting-edge medical technology with personalized,
+          compassionate care to ensure the best possible outcomes for our patients and their families.
+        </p>
+
+        <div class="hero__cta">
+          <a href="#contact" class="btn btn--primary">
+            Schedule Appointment
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#about" class="btn btn--ghost">Learn More</a>
+        </div>
+
+        <div class="hero__trust">
+          <div><strong>24/7</strong><span>Emergency Care</span></div>
+          <div><strong>500+</strong><span>Medical Professionals</span></div>
+          <div><strong>98%</strong><span>Patient Satisfaction</span></div>
+        </div>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero-card">
+          <div class="hero-card__art" aria-hidden="true">
+            <svg viewBox="0 0 400 190" preserveAspectRatio="none">
+              <polyline class="ecg-line" points="0,120 40,120 55,120 68,60 84,160 100,95 118,120 160,120 176,120 190,72 206,150 222,110 240,120 300,120 316,86 332,140 348,120 400,120"/>
+            </svg>
+          </div>
+          <div class="hero-card__body">
+            <span class="pill-live"><span class="dot"></span> Live · Always Open</span>
+            <h3>24/7 Emergency Care</h3>
+            <p>Rapid response teams, advanced life support and immediate triage — every hour of every day.</p>
+          </div>
+        </div>
+
+        <div class="float-card float-card--a">
+          <span class="float-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          </span>
+          <div><strong>98%</strong><span>Patient Satisfaction</span></div>
+        </div>
+
+        <div class="float-card float-card--b">
+          <span class="float-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>
+          </span>
+          <div><strong>500+</strong><span>Medical Professionals</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HIRING ALERT BAND — Carla available, Robert + Sonnie booked
+       ============================================================ -->
+  <section class="hiring" aria-labelledby="hiring-title">
+    <div class="container">
+      <div class="hiring__card">
+        <div class="hiring__grid">
+          <div>
+            <span class="eyebrow eyebrow--light">Careers · Remote Roles</span>
+            <h2 id="hiring-title">Interviewing for a remote position?</h2>
+            <p>
+              All interviews for our remote roles are conducted on Microsoft Teams. <strong>Carla Bates</strong>
+              currently has an open interview room and is accepting new sessions. Robert Zilkoski and
+              Sonnie Griswold are fully booked at this time and cannot accept new interviews. Please
+              join Carla's interview room using the button below, and keep your interview code ready —
+              the HR manager will ask for it during the interview.
+            </p>
+
+            <div class="hiring__actions">
+              <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1"
+                 class="btn btn--accent"
+                 target="_blank" rel="noopener noreferrer">
+                Join Interview — Carla Bates
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a href="#careers" class="btn btn--light">View Open Positions</a>
+            </div>
+
+            <p class="hiring__availability-note">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span><strong>Carla Bates has an open room.</strong> Robert Zilkoski and Sonnie Griswold are fully booked.</span>
+            </p>
+          </div>
+
+          <div>
+            <button type="button"
+                    class="code-box"
+                    id="codeBox"
+                    aria-label="Copy your personal interview code">
+              <span class="code-box__label">Your interview code</span>
+              <span class="code-box__row">
+                <strong data-interview-code>WK-XXXXX</strong>
+                <span class="code-box__hint" id="codeHint" aria-live="polite">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="9" y="9" width="12" height="12" rx="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                  </svg>
+                  Click to copy
+                </span>
+              </span>
+            </button>
+
+            <p class="managers-heading">Official hiring managers · live availability</p>
+
+            <!-- ===== Carla available; Robert + Sonnie occupied ===== -->
+            <div class="managers">
+
+              <span class="manager-chip manager-chip--busy" aria-disabled="true">
+                <i aria-hidden="true">RZ</i>
+                <span class="manager-chip__name">Robert Zilkoski</span>
+                <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Occupied</span>
+              </span>
+
+              <a class="manager-chip manager-chip--available"
+                 href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1"
+                 target="_blank" rel="noopener noreferrer">
+                <i aria-hidden="true">CB</i>
+                <span class="manager-chip__name">Carla Bates</span>
+                <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Available</span>
+                <svg class="manager-chip__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              </a>
+
+              <span class="manager-chip manager-chip--busy" aria-disabled="true">
+                <i aria-hidden="true">SG</i>
+                <span class="manager-chip__name">Sonnie Griswold</span>
+                <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Occupied</span>
+              </span>
+
+            </div>
+
+            <div class="warn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <div>
+                <strong>Stay cautious:</strong> we only interview on Microsoft Teams and only with the
+                managers named above. <strong>Carla Bates</strong> is the only manager with an open
+                interview room — if anyone else, or anyone using a different name, contacts you claiming
+                to represent WellspringCare, do not share any information and report it to
+                <a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a> before responding.
+                We will never ask for payment, banking details, or gift cards.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">About WellspringCare Hospital</span>
+        <h2>Dedicated to exceptional healthcare with a patient-centered approach</h2>
+      </div>
+
+      <div class="about__grid">
+        <div class="reveal">
+          <h3>Our Mission</h3>
+          <p class="about__lead">
+            WellspringCare Hospital is committed to delivering world-class healthcare services while
+            maintaining the highest standards of medical excellence, safety, and patient satisfaction.
+            We believe in treating not just the condition, but the whole person.
+          </p>
+          <p class="about__lead">
+            Founded with the vision of creating a healing environment where patients feel safe, respected,
+            and cared for, we have grown to become a trusted healthcare provider in our community.
+          </p>
+
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <strong>24/7</strong>
+              <span>Emergency Care</span>
+            </div>
+            <div class="mini-stat">
+              <strong>500+</strong>
+              <span>Medical Professionals</span>
+            </div>
+          </div>
+
+          <div class="info-panel">
+            <div class="info-panel__item">
+              <h4>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Our Location
+              </h4>
+              <p>4567 Harbor Crest Lane<br>San Diego, CA 92101<br>United States</p>
+            </div>
+            <div class="info-panel__item">
+              <h4>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+                Contact
+              </h4>
+              <p>
+                <a href="tel:+17754195404">+1 (775) 419-5404</a><br>
+                <a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a>
+              </p>
+            </div>
+            <div class="info-panel__item">
+              <h4>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                Hours
+              </h4>
+              <p>Emergency: 24/7<br>General Services: 6 AM – 10 PM<br>Appointments: 8 AM – 6 PM PT</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <h3 style="margin-bottom:1.1rem;">Our Values</h3>
+          <div class="values-grid stagger">
+            <div class="value-card">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#FF6B5B,#FF9A6B)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+              </div>
+              <h4>Compassion</h4>
+              <p>We treat every patient with empathy, kindness, and respect.</p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#FFB020,#FF8A3D)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></svg>
+              </div>
+              <h4>Excellence</h4>
+              <p>We strive for the highest quality in all aspects of patient care.</p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#0E7C7B,#14B8A6)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <h4>Integrity</h4>
+              <p>We maintain honesty and transparency in all our interactions.</p>
+            </div>
+
+            <div class="value-card">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#2F80ED,#7C5CFF)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2z"/></svg>
+              </div>
+              <h4>Innovation</h4>
+              <p>We embrace new technologies and methods to improve patient outcomes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Our Medical Services</span>
+        <h2>Comprehensive healthcare, delivered by experts</h2>
+        <p>
+          Cardiology, Neurology, Surgery, Pediatrics, Emergency Care, and Radiology — delivered by
+          experienced medical professionals.
+        </p>
+      </div>
+
+      <div class="cards-grid stagger">
+        <article class="service-card" style="--glow:rgba(255,107,91,.16)">
+          <div class="icon-tile" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          </div>
+          <h3>Cardiology</h3>
+          <p>Advanced cardiac care including diagnostics, interventional procedures, and rehabilitation programs for heart conditions.</p>
+          <a class="service-card__link" href="#contact">Book a consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card" style="--glow:rgba(124,92,255,.16)">
+          <div class="icon-tile" style="--tile-a:#7C5CFF;--tile-b:#A78BFA">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg>
+          </div>
+          <h3>Neurology</h3>
+          <p>Comprehensive neurological care for brain, spine, and nervous system disorders with state-of-the-art diagnostic equipment.</p>
+          <a class="service-card__link" href="#contact">Book a consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card" style="--glow:rgba(47,128,237,.16)">
+          <div class="icon-tile" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg>
+          </div>
+          <h3>Surgery</h3>
+          <p>Advanced surgical procedures including minimally invasive techniques performed by skilled surgeons in modern operating theaters.</p>
+          <a class="service-card__link" href="#contact">Book a consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card" style="--glow:rgba(255,176,32,.18)">
+          <div class="icon-tile" style="--tile-a:#FFB020;--tile-b:#FFD166">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8.5 14.5a5 5 0 0 0 7 0"/></svg>
+          </div>
+          <h3>Pediatrics</h3>
+          <p>Specialized care for infants, children, and adolescents with child-friendly facilities and experienced pediatric specialists.</p>
+          <a class="service-card__link" href="#contact">Book a consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card" style="--glow:rgba(255,107,91,.18)">
+          <div class="icon-tile" style="--tile-a:#E14B3A;--tile-b:#FF6B5B">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+          </div>
+          <h3>Emergency Care</h3>
+          <p>24/7 emergency services with rapid response teams and advanced life support systems for critical care situations.</p>
+          <a class="service-card__link" href="tel:+17754195404">Call emergency line
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+
+        <article class="service-card" style="--glow:rgba(20,184,166,.18)">
+          <div class="icon-tile" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+          </div>
+          <h3>Radiology</h3>
+          <p>Advanced imaging services including MRI, CT scans, ultrasound, and digital X-rays for accurate diagnosis.</p>
+          <a class="service-card__link" href="#contact">Book a consultation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-band" aria-label="Hospital statistics">
+    <div class="container stats-band__inner">
+      <div class="stat">
+        <span class="stat__num" data-count="15000" data-suffix="+">0</span>
+        <span class="stat__label">Patients Treated Annually</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="25">0</span>
+        <span class="stat__label">Years of Excellence</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="98" data-suffix="%">0</span>
+        <span class="stat__label">Patient Satisfaction</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num" data-count="50">0</span>
+        <span class="stat__label">Medical Specialties</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATIENT CARE -->
+  <section class="patient-care" id="patient-care">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Patient Care</span>
+        <h2>How We Care for Our Patients</h2>
+        <p>Our patient-centered approach ensures comprehensive care throughout your healthcare journey.</p>
+      </div>
+
+      <div class="care-grid stagger">
+        <article class="care-card">
+          <span class="care-card__num">01</span>
+          <div class="care-card__icon" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11h6M12 8v6"/><path d="M4 4h16v16H4z"/></svg>
+          </div>
+          <h3>Personalized Treatment Plans</h3>
+          <p>Every patient receives a customized treatment plan developed by our multidisciplinary team, taking into account individual needs, medical history, and preferences.</p>
+        </article>
+
+        <article class="care-card">
+          <span class="care-card__num">02</span>
+          <div class="care-card__icon" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <h3>24/7 Monitoring</h3>
+          <p>Our dedicated nursing staff provides round-the-clock monitoring and care, ensuring patient safety and comfort at all times with immediate response to any concerns.</p>
+        </article>
+
+        <article class="care-card">
+          <span class="care-card__num">03</span>
+          <div class="care-card__icon" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>
+          </div>
+          <h3>Family-Centered Care</h3>
+          <p>We involve families in the care process, providing education, support, and communication to ensure everyone is informed and comfortable with treatment decisions.</p>
+        </article>
+
+        <article class="care-card">
+          <span class="care-card__num">04</span>
+          <div class="care-card__icon" style="--tile-a:#0B6B3A;--tile-b:#22C55E">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3>Safety First</h3>
+          <p>Patient safety is our top priority. We maintain strict protocols, regular safety audits, and continuous staff training to prevent medical errors and infections.</p>
+        </article>
+
+        <article class="care-card">
+          <span class="care-card__num">05</span>
+          <div class="care-card__icon" style="--tile-a:#7C5CFF;--tile-b:#A78BFA">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Clear Communication</h3>
+          <p>We believe in transparent communication, keeping patients and families informed about diagnoses, treatment options, and progress throughout the care journey.</p>
+        </article>
+
+        <article class="care-card">
+          <span class="care-card__num">06</span>
+          <div class="care-card__icon" style="--tile-a:#FFB020;--tile-b:#FFD166">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <h3>Comfortable Environment</h3>
+          <p>Our modern facilities are designed to create a healing environment with comfortable rooms, calming colors, and amenities that make patients feel at home.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREERS -->
+  <section class="careers" id="careers">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow--coral">We're Hiring — Remote Positions</span>
+        <h2>Join the WellspringCare team from anywhere</h2>
+        <p>We're growing and looking for dedicated people to fill the remote roles below.</p>
+      </div>
+
+      <div class="jobs-grid stagger">
+        <article class="job-card">
+          <div class="job-card__top">
+            <span class="tag-remote">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              Remote
+            </span>
+          </div>
+          <h3>Data Entry Clerk</h3>
+          <p>Accurately input, update, and maintain records across our internal systems. Strong attention to detail and reliable internet required.</p>
+          <ul class="job-meta">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span><strong>Compensation:</strong> $30/hour</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="M21 12.5 12 17.5 3 12.5"/></svg>
+              <span><strong>Minimum requirement:</strong> at least a high school diploma.</span>
+            </li>
+          </ul>
+          <p class="job-note">
+            To reach the hiring team, message <strong>“interested”</strong> to Carla Bates
+            — the interviewer currently available — on
+            <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1" target="_blank" rel="noopener noreferrer">
+              Carla Bates' Teams room
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>.
+          </p>
+          <button class="btn btn--primary btn--block apply-btn" data-position="Data Entry Clerk">Apply Now</button>
+        </article>
+
+        <article class="job-card">
+          <div class="job-card__top">
+            <span class="tag-remote">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              Remote
+            </span>
+          </div>
+          <h3>Customer Service Representative</h3>
+          <p>Be the friendly first point of contact for our patients and partners. Resolve inquiries with empathy, clarity, and professionalism.</p>
+          <ul class="job-meta">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span><strong>Compensation:</strong> $30/hour</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="M21 12.5 12 17.5 3 12.5"/></svg>
+              <span><strong>Minimum requirement:</strong> at least a high school diploma.</span>
+            </li>
+          </ul>
+          <p class="job-note">
+            To reach the hiring team, message <strong>“interested”</strong> to Carla Bates
+            — the interviewer currently available — on
+            <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1" target="_blank" rel="noopener noreferrer">
+              Carla Bates' Teams room
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>.
+          </p>
+          <button class="btn btn--primary btn--block apply-btn" data-position="Customer Service Representative">Apply Now</button>
+        </article>
+
+        <article class="job-card">
+          <div class="job-card__top">
+            <span class="tag-remote">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              Remote
+            </span>
+          </div>
+          <h3>Payroll Assistant Manager</h3>
+          <p>Support payroll processing, timesheet review, and reporting. Prior payroll experience and confidentiality are essential.</p>
+          <ul class="job-meta">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              <span><strong>Compensation:</strong> $30/hour</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="M21 12.5 12 17.5 3 12.5"/></svg>
+              <span><strong>Minimum requirement:</strong> at least a high school diploma.</span>
+            </li>
+          </ul>
+          <p class="job-note">
+            To reach the hiring team, message <strong>“interested”</strong> to Carla Bates
+            — the interviewer currently available — on
+            <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1" target="_blank" rel="noopener noreferrer">
+              Carla Bates' Teams room
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>.
+          </p>
+          <button class="btn btn--primary btn--block apply-btn" data-position="Payroll Assistant Manager">Apply Now</button>
+        </article>
+      </div>
+
+      <!-- APPLICATION FORM -->
+      <div class="apply-wrap" id="apply">
+        <div class="apply-intro reveal">
+          <span class="eyebrow eyebrow--amber">Submit Your Application</span>
+          <h3>Fill in your details and attach your resume. We'll be in touch.</h3>
+          <p>Our recruiting team reviews every application personally. Expect a response within 3–5 business days.</p>
+          <ul class="apply-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Interviews are conducted on Microsoft Teams only — currently with Carla Bates.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>We never request payment, banking details, or gift cards.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Keep your personal interview code ready before joining any call.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="form-card reveal">
+          <form id="applicationForm"
+                action="https://formspree.io/f/xjywgqqj"
+                method="POST"
+                enctype="multipart/form-data"
+                novalidate>
+            <input type="hidden" name="_subject" value="WellspringCare — New Job Application (Carla Bates)" />
+
+            <div class="hp-field" aria-hidden="true">
+              <label>Leave this field empty
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="fullName">Full Name <span class="req">*</span></label>
+                <input type="text" id="fullName" name="fullName" placeholder="Jane A. Doe" required />
+                <span class="err">Please enter your full name.</span>
+              </div>
+
+              <div class="field">
+                <label for="appPhone">Phone Number</label>
+                <input type="tel" id="appPhone" name="appPhone" placeholder="(555) 123-4567" />
+              </div>
+
+              <div class="field">
+                <label for="appEmail">Email Address <span class="req">*</span></label>
+                <input type="email" id="appEmail" name="email" placeholder="you@example.com" required />
+                <span class="err">Please enter a valid email address.</span>
+              </div>
+
+              <div class="field field--full">
+                <label for="position">Position of Interest</label>
+                <select id="position" name="position">
+                  <option value="">Select a position (optional)</option>
+                  <option value="Data Entry Clerk">Data Entry Clerk</option>
+                  <option value="Customer Service Representative">Customer Service Representative</option>
+                  <option value="Payroll Assistant Manager">Payroll Assistant Manager</option>
+                  <option value="Other / General Application">Other / General Application</option>
+                </select>
+              </div>
+
+              <div class="field field--full">
+                <label for="resume">Resume Attachment <span class="req">*</span></label>
+                <div class="file-drop">
+                  <input type="file" id="resume" name="resume" required
+                         accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" />
+                  <div class="file-drop__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5-5 5 5M12 5v12"/></svg>
+                  </div>
+                  <strong>Choose file</strong>
+                  <span>or drag &amp; drop your resume here</span>
+                  <span class="file-name" id="fileName">No file chosen</span>
+                </div>
+                <p class="hint">Accepted: PDF, DOC, DOCX, TXT, JPG, PNG, WEBP — up to 5 MB.</p>
+                <span class="err">Please attach your resume.</span>
+              </div>
+
+              <div class="field field--full">
+                <button type="submit" class="btn btn--primary btn--block" id="appSubmitBtn">
+                  Submit Application
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div style="margin-top:clamp(3rem,6vw,4.5rem);">
+        <div class="section-head reveal">
+          <span class="eyebrow">Hiring FAQ</span>
+          <h2>Answers to common questions</h2>
+          <p>Applying, pay, and verifying official WellspringCare communications.</p>
+        </div>
+
+        <div class="faq reveal">
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              How do I apply for a remote position?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>Choose a role above and click <strong>Apply Now</strong>, or use the application form on this page. You can also message <strong>“interested”</strong> to Carla Bates — the interviewer currently available — directly on Microsoft Teams: <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1" target="_blank" rel="noopener noreferrer">Carla Bates</a>. Attach an up-to-date resume (PDF or DOCX preferred).</p></div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              What are the pay and requirements?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>All open remote roles are listed at <strong>$30/hour</strong>. The minimum requirement for each role is at least a high school diploma; role-specific experience (such as prior payroll experience for the Payroll Assistant Manager position) is noted on each job card.</p></div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              What does each role involve?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>Data Entry Clerks maintain accurate records across internal systems. Customer Service Representatives are the first point of contact for patients and partners. The Payroll Assistant Manager supports payroll processing, timesheet review, and reporting. Full descriptions appear on each job card above.</p></div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              How are interviews conducted?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>Interviews take place on <strong>Microsoft Teams</strong> only, with one of our official hiring managers: <strong>Carla Bates</strong>, Robert Zilkoski, or Sonnie Griswold. Carla Bates currently has an open interview room — Robert Zilkoski and Sonnie Griswold are fully booked. Join Carla's room using the <a href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1" target="_blank" rel="noopener noreferrer">official Teams interview link</a> and keep your <strong>personal interview code</strong> (shown at the top of this page) ready — the HR manager will ask for it during the call.</p></div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              How can I verify that a message is really from WellspringCare?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>Use the <a href="verification.html">Verification Center</a> to check an interview code, and confirm the sender's name against our official hiring managers. Remember that Carla Bates is the only manager currently accepting interviews — if anyone else contacts you claiming availability, verify before responding. We will never ask for payment, banking details, or gift cards. If anything feels wrong, email <a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a> before responding.</p></div>
+          </div>
+
+          <div class="faq__item">
+            <button class="faq__q" aria-expanded="false">
+              What happens after I submit my application?
+              <span class="faq__icon" aria-hidden="true"></span>
+            </button>
+            <div class="faq__a"><p>Our recruiting team reviews your details and resume, usually within 3–5 business days. Shortlisted candidates receive a Microsoft Teams interview invitation together with an interview code. If you are not selected for this role, your application is kept on file for future openings.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFICATION -->
+  <section class="verification" id="verification">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow eyebrow--light">Verification Center</span>
+        <h2 style="color:#fff;">Verify before you respond</h2>
+        <p>Confirm that an interview invitation, message, or offer really came from WellspringCare.</p>
+      </div>
+
+      <div class="verify-grid">
+        <div class="verify-panel reveal">
+          <h3>Check an interview code</h3>
+          <p>
+            Enter the code from your invitation to confirm it belongs to an official WellspringCare
+            interview. Our secure Verification Center also lets patients and employees complete identity
+            and document verification.
+          </p>
+          <a href="verification.html" class="btn btn--accent" style="margin-top:1.25rem;">
+            Open Verification Center
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="verify-panel reveal">
+          <h3>Official contact rules</h3>
+          <p>These rules never change — no matter who contacts you.</p>
+
+          <ul class="verify-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>We interview on <strong>Microsoft Teams only</strong>, with <strong>Carla Bates</strong> (currently available). Robert Zilkoski and Sonnie Griswold are fully booked at this time.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>We <strong>never</strong> ask for payment, banking details, or gift cards — at any stage.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Official email always comes from <strong>Support@wellspring-care.net</strong>.</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>If someone uses a different name or address, <strong>do not share information</strong> — report it to <a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a> first.</span>
+            </li>
+          </ul>
+
+          <div class="warn" style="margin-top:1.4rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            <div>Stay cautious. Anyone outside the three official managers above, or anyone using a different contact channel, should be reported before you respond.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Contact Us</span>
+        <h2>Get in touch with us</h2>
+        <p>For appointments, general inquiries, or emergency services — we're here for you.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="form-card reveal">
+          <form id="contactForm"
+                action="https://formspree.io/f/xjywgqqj"
+                method="POST"
+                novalidate>
+            <div class="hp-field" aria-hidden="true">
+              <label>Leave this field empty
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+              </label>
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="firstName">First Name <span class="req">*</span></label>
+                <input type="text" id="firstName" name="firstName" placeholder="Jane" required />
+                <span class="err">Please enter your first name.</span>
+              </div>
+
+              <div class="field">
+                <label for="lastName">Last Name <span class="req">*</span></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Doe" required />
+                <span class="err">Please enter your last name.</span>
+              </div>
+
+              <div class="field">
+                <label for="contactEmail">Email Address <span class="req">*</span></label>
+                <input type="email" id="contactEmail" name="email" placeholder="you@example.com" required />
+                <span class="err">Please enter a valid email address.</span>
+              </div>
+
+              <div class="field">
+                <label for="contactPhone">Phone Number</label>
+                <input type="tel" id="contactPhone" name="phone" placeholder="(555) 123-4567" />
+              </div>
+
+              <div class="field field--full">
+                <label for="serviceNeeded">Service Needed</label>
+                <select id="serviceNeeded" name="serviceNeeded">
+                  <option value="">Select a service (optional)</option>
+                  <option>Cardiology</option>
+                  <option>Neurology</option>
+                  <option>Surgery</option>
+                  <option>Pediatrics</option>
+                  <option>Emergency Care</option>
+                  <option>Radiology</option>
+                  <option>General Inquiry</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="apptDate">Preferred Appointment Date</label>
+                <input type="date" id="apptDate" name="apptDate" />
+              </div>
+
+              <div class="field">
+                <label for="apptTime">Preferred Time</label>
+                <select id="apptTime" name="apptTime">
+                  <option value="">Select preferred time (optional)</option>
+                  <option>Morning (8 AM – 11 AM PT)</option>
+                  <option>Midday (11 AM – 2 PM PT)</option>
+                  <option>Afternoon (2 PM – 4 PM PT)</option>
+                  <option>Evening (4 PM – 6 PM PT)</option>
+                </select>
+              </div>
+
+              <div class="field field--full">
+                <label for="message">Message <span class="req">*</span></label>
+                <textarea id="message" name="message" placeholder="Please describe your inquiry or any specific concerns..." required></textarea>
+                <span class="err">Please tell us how we can help.</span>
+              </div>
+
+              <div class="field field--full">
+                <label class="checkbox-row" for="agree">
+                  <input type="checkbox" id="agree" name="agree" required />
+                  <span>I agree to the <a href="#footer">Privacy Policy</a> and <a href="#footer">Terms of Service</a> <span class="req">*</span></span>
+                </label>
+                <span class="err">Please accept the Privacy Policy and Terms of Service.</span>
+              </div>
+
+              <div class="field field--full">
+                <button type="submit" class="btn btn--primary btn--block" id="contactSubmitBtn">
+                  Send Message
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-info reveal">
+          <div class="emergency-card">
+            <h4>Emergency</h4>
+            <strong>24/7 Emergency Care</strong>
+            <span>Call <a href="tel:+17754195404">+1 (775) 419-5404</a> — rapid response, always open.</span>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card__icon" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h4>Address</h4>
+              <p>4567 Harbor Crest Lane<br>San Diego, CA 92101<br>United States</p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card__icon" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            </div>
+            <div>
+              <h4>Phone</h4>
+              <p><a href="tel:+17754195404">+1 (775) 419-5404</a></p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card__icon" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            </div>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a></p>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-card__icon" style="--tile-a:#FFB020;--tile-b:#FFD166">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div>
+              <h4>Hours</h4>
+              <p>Emergency: 24/7<br>General Services: 6 AM – 10 PM<br>Appointments: 8 AM – 6 PM PT</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__about">
+        <a href="#home" class="brand">
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>
+          </span>
+          <span class="brand__text"><strong>WellspringCare</strong><small>Hospital</small></span>
+        </a>
+        <p>Providing compassionate, high-quality healthcare services to our community for over 25 years. Your health and well-being are our top priorities.</p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul class="footer__links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#patient-care">Patient Care</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="verification.html">Verification</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Services</h4>
+        <ul class="footer__links">
+          <li><a href="#services">Emergency Care</a></li>
+          <li><a href="#services">Cardiology</a></li>
+          <li><a href="#services">Neurology</a></li>
+          <li><a href="#services">Surgery</a></li>
+          <li><a href="#services">Pediatrics</a></li>
+          <li><a href="#services">Radiology</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact Info</h4>
+        <ul class="footer__contact">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>4567 Harbor Crest Lane<br>San Diego, CA 92101</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+            <a href="tel:+17754195404">+1 (775) 419-5404</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
+            <a href="mailto:Support@wellspring-care.net">Support@wellspring-care.net</a>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>24/7 Emergency Care</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>&copy; <span id="year">2026</span> WellspringCare. All rights reserved.</span>
+      <div class="footer__legal">
+        <a href="#footer">Privacy Policy</a>
+        <a href="#footer">Terms of Service</a>
+        <a href="#home">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     CONFIG
+     ============================================================ */
+  const FS_ENDPOINT = 'https://formspree.io/f/xjywgqqj';
+
+  /* ------------------------------------------------------------
+     1. MOBILE NAV
+     ------------------------------------------------------------ */
+  const header  = document.getElementById('header');
+  const nav     = document.getElementById('nav');
+  const menuBtn = document.getElementById('menuBtn');
+
+  function closeMenu() {
+    if (!nav || !menuBtn) return;
+    nav.classList.remove('is-open');
+    menuBtn.classList.remove('is-open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    menuBtn.setAttribute('aria-label', 'Open menu');
+    document.body.classList.remove('nav-open');
+  }
+
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', function () {
+      const open = nav.classList.toggle('is-open');
+      menuBtn.classList.toggle('is-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      document.body.classList.toggle('nav-open', open);
+    });
+
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+  }
+
+  /* ------------------------------------------------------------
+     2. HEADER SHADOW ON SCROLL
+     ------------------------------------------------------------ */
+  function onScroll() {
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ------------------------------------------------------------
+     3. ACTIVE NAV LINK (scroll spy)
+     ------------------------------------------------------------ */
+  const navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav__link'));
+
+  const sections = navLinks
+    .filter(function (l) { return (l.getAttribute('href') || '').charAt(0) === '#'; })
+    .map(function (l) { return document.querySelector(l.getAttribute('href')); })
+    .filter(Boolean);
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const id = '#' + entry.target.id;
+        navLinks.forEach(function (l) {
+          const href = l.getAttribute('href');
+          if (!href || href.charAt(0) !== '#') return;
+          l.classList.toggle('is-active', href === id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     4. SCROLL REVEAL
+     ------------------------------------------------------------ */
+  document.querySelectorAll('.stagger').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) {
+      child.classList.add('reveal');
+      child.style.transitionDelay = (i * 70) + 'ms';
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    const revealObs = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(function (el) { revealObs.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  /* ------------------------------------------------------------
+     5. ANIMATED COUNTERS
+     ------------------------------------------------------------ */
+  function animateCount(el) {
+    const target   = parseFloat(el.dataset.count || '0');
+    const suffix   = el.dataset.suffix || '';
+    const duration = 1600;
+    const start    = performance.now();
+
+    function frame(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased    = 1 - Math.pow(1 - progress, 3);
+      const value    = Math.round(target * eased);
+      el.textContent = value.toLocaleString('en-US') + suffix;
+      if (progress < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  const counters = document.querySelectorAll('.stat__num');
+  if ('IntersectionObserver' in window && counters.length) {
+    const countObs = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (c) { countObs.observe(c); });
+  } else {
+    counters.forEach(function (c) {
+      c.textContent = Number(c.dataset.count).toLocaleString('en-US') + (c.dataset.suffix || '');
+    });
+  }
+
+  /* ------------------------------------------------------------
+     6. FAQ ACCORDION
+     ------------------------------------------------------------ */
+  document.querySelectorAll('.faq__item').forEach(function (item) {
+    const btn    = item.querySelector('.faq__q');
+    const answer = item.querySelector('.faq__a');
+    if (!btn || !answer) return;
+
+    btn.addEventListener('click', function () {
+      const isOpen = item.classList.contains('is-open');
+
+      document.querySelectorAll('.faq__item').forEach(function (other) {
+        other.classList.remove('is-open');
+        const otherBtn = other.querySelector('.faq__q');
+        const otherAns = other.querySelector('.faq__a');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        if (otherAns) otherAns.style.maxHeight = null;
+      });
+
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  /* ------------------------------------------------------------
+     7. TOAST
+     ------------------------------------------------------------ */
+  const toast = document.getElementById('toast');
+  let toastTimer;
+
+  function showToast(message, type) {
+    if (!toast) return;
+    clearTimeout(toastTimer);
+    toast.textContent = message;
+    toast.className = 'toast show' + (type ? ' toast--' + type : '');
+    toastTimer = setTimeout(function () {
+      toast.className = 'toast';
+    }, 5200);
+  }
+
+  /* ------------------------------------------------------------
+     8. BUTTON LOADING STATE
+     ------------------------------------------------------------ */
+  function setLoading(btn, loading, label) {
+    if (!btn) return;
+
+    if (loading) {
+      if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
+      btn.disabled = true;
+      if (label) btn.textContent = label;
+    } else {
+      btn.disabled = false;
+      if (btn.dataset.originalHtml) btn.innerHTML = btn.dataset.originalHtml;
+    }
+  }
+
+  /* ------------------------------------------------------------
+     9. INTERVIEW CODE
+     ------------------------------------------------------------ */
+  const CODE_KEY     = 'wsc_interview_code';
+  const CODE_PATTERN = /^WK-[A-Z0-9]{4,8}$/;
+
+  function generateInterviewCode() {
+    const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const length   = 5;
+    let out = '';
+
+    if (window.crypto && typeof window.crypto.getRandomValues === 'function') {
+      const buf = new Uint8Array(length);
+      window.crypto.getRandomValues(buf);
+      for (let i = 0; i < length; i++) {
+        out += alphabet[buf[i] % alphabet.length];
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        out += alphabet[Math.floor(Math.random() * alphabet.length)];
+      }
+    }
+    return 'WK-' + out;
+  }
+
+  function getInterviewCode() {
+    try {
+      const saved = window.localStorage.getItem(CODE_KEY);
+      if (saved && CODE_PATTERN.test(saved)) return saved;
+
+      const fresh = generateInterviewCode();
+      window.localStorage.setItem(CODE_KEY, fresh);
+      return fresh;
+    } catch (err) {
+      return generateInterviewCode();
+    }
+  }
+
+  const interviewCode = getInterviewCode();
+
+  document.querySelectorAll('[data-interview-code]').forEach(function (el) {
+    el.textContent = interviewCode;
+  });
+
+  function legacyCopy(text) {
+    try {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function copyToClipboard(text) {
+    return new Promise(function (resolve) {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(
+          function () { resolve(true); },
+          function () { resolve(legacyCopy(text)); }
+        );
+        return;
+      }
+      resolve(legacyCopy(text));
+    });
+  }
+
+  const codeBox      = document.getElementById('codeBox');
+  const codeHint     = document.getElementById('codeHint');
+  const HINT_DEFAULT = codeHint ? codeHint.innerHTML : '';
+  let hintTimer;
+
+  if (codeBox) {
+    codeBox.addEventListener('click', function () {
+      copyToClipboard(interviewCode).then(function (ok) {
+        if (ok) {
+          codeBox.classList.add('is-copied');
+          if (codeHint) codeHint.textContent = 'Copied!';
+
+          clearTimeout(hintTimer);
+          hintTimer = setTimeout(function () {
+            codeBox.classList.remove('is-copied');
+            if (codeHint) codeHint.innerHTML = HINT_DEFAULT;
+          }, 2200);
+
+          showToast('Interview code ' + interviewCode + ' copied to your clipboard.', 'ok');
+        } else {
+          showToast('Could not copy automatically — your code is ' + interviewCode, 'bad');
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     10. VALIDATION
+     ------------------------------------------------------------ */
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+
+  function setInvalid(input, invalid) {
+    input.classList.toggle('is-invalid', invalid);
+    const field = input.closest('.field');
+    if (!field) return;
+    const err = field.querySelector('.err');
+    if (err) err.classList.toggle('show', invalid);
+  }
+
+  function validateForm(form) {
+    let firstInvalid = null;
+
+    form.querySelectorAll('[required]').forEach(function (input) {
+      let invalid = false;
+
+      if (input.type === 'checkbox') {
+        invalid = !input.checked;
+      } else if (input.type === 'file') {
+        invalid = !input.files || input.files.length === 0;
+      } else if (input.type === 'email') {
+        invalid = !EMAIL_RE.test(input.value.trim());
+      } else {
+        invalid = input.value.trim() === '';
+      }
+
+      setInvalid(input, invalid);
+      if (invalid && !firstInvalid) firstInvalid = input;
+    });
+
+    if (firstInvalid) {
+      firstInvalid.focus({ preventScroll: true });
+      firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    return !firstInvalid;
+  }
+
+  document.querySelectorAll('.field input, .field select, .field textarea').forEach(function (input) {
+    const clear = function () { setInvalid(input, false); };
+    input.addEventListener('input', clear);
+    input.addEventListener('change', clear);
+  });
+
+  /* ------------------------------------------------------------
+     11. FILE INPUT DISPLAY
+     ------------------------------------------------------------ */
+  const resumeInput = document.getElementById('resume');
+  const fileNameEl  = document.getElementById('fileName');
+
+  if (resumeInput && fileNameEl) {
+    resumeInput.addEventListener('change', function () {
+      const file = resumeInput.files && resumeInput.files[0];
+      if (!file) {
+        fileNameEl.textContent = 'No file chosen';
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        fileNameEl.textContent = 'File is larger than 5 MB — please choose another.';
+        resumeInput.value = '';
+        setInvalid(resumeInput, true);
+        return;
+      }
+      fileNameEl.textContent = file.name;
+      setInvalid(resumeInput, false);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     12. FORMSPREE HELPER
+     ------------------------------------------------------------ */
+  function handleFormspreeResponse(res) {
+    return res.json().then(function (data) {
+      if (res.ok) return data;
+
+      let msg = 'Submission failed';
+      if (data && Array.isArray(data.errors) && data.errors.length) {
+        msg = data.errors
+          .map(function (e) { return e.message || (e.field ? e.field + ': ' + e.message : e.message); })
+          .filter(Boolean)
+          .join(', ');
+      } else if (data && data.error) {
+        msg = data.error;
+      } else if (res.status === 429) {
+        msg = 'Too many submissions — please wait a moment and try again.';
+      }
+      throw new Error(msg);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     13. APPLICATION FORM
+     ------------------------------------------------------------ */
+  const applicationForm = document.getElementById('applicationForm');
+  const appSubmitBtn    = document.getElementById('appSubmitBtn');
+
+  if (applicationForm) {
+    applicationForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!validateForm(applicationForm)) {
+        showToast('Please complete the highlighted fields before submitting.', 'bad');
+        return;
+      }
+
+      const formData = new FormData(applicationForm);
+
+      formData.set('_subject', 'WellspringCare — New Job Application (Carla Bates)');
+      formData.set('interviewCode', interviewCode);
+      formData.set('interviewer', 'Carla Bates');
+      formData.set('submittedAt', new Date().toLocaleString());
+      formData.set('formType', 'Job Application');
+      formData.set('pageUrl', location.href);
+
+      const applicantEmail = (document.getElementById('appEmail') || {}).value || '';
+      if (applicantEmail.trim()) formData.set('_replyto', applicantEmail.trim());
+
+      setLoading(appSubmitBtn, true, 'Submitting…');
+
+      fetch(FS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      })
+        .then(handleFormspreeResponse)
+        .then(function () {
+          showToast('Application received! Our recruiting team will be in touch within 3–5 business days.', 'ok');
+          applicationForm.reset();
+          if (fileNameEl) fileNameEl.textContent = 'No file chosen';
+        })
+        .catch(function (err) {
+          showToast('Sorry — ' + (err.message || 'we could not submit your application.') + ' Please try again.', 'bad');
+        })
+        .finally(function () {
+          setLoading(appSubmitBtn, false);
+        });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     14. CONTACT FORM
+     ------------------------------------------------------------ */
+  const contactForm      = document.getElementById('contactForm');
+  const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+
+  function val(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      if (!validateForm(contactForm)) {
+        showToast('Please complete the highlighted fields before sending.', 'bad');
+        return;
+      }
+
+      const payload = {
+        _subject: 'WellspringCare — New Contact / Appointment Request',
+        _replyto: val('contactEmail'),
+        formType: 'Contact / Appointment Request',
+        firstName: val('firstName'),
+        lastName: val('lastName'),
+        email: val('contactEmail'),
+        phone: val('contactPhone'),
+        serviceNeeded: val('serviceNeeded'),
+        preferredDate: val('apptDate'),
+        preferredTime: val('apptTime'),
+        message: val('message'),
+        interviewCode: interviewCode,
+        interviewer: 'Carla Bates',
+        pageUrl: location.href,
+        submittedAt: new Date().toLocaleString()
+      };
+
+      setLoading(contactSubmitBtn, true, 'Sending…');
+
+      fetch(FS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(handleFormspreeResponse)
+        .then(function () {
+          showToast('Thank you! Your message was sent to our team.', 'ok');
+          contactForm.reset();
+        })
+        .catch(function (err) {
+          showToast('Sorry — ' + (err.message || 'we could not send your message.') + ' Please try again.', 'bad');
+        })
+        .finally(function () {
+          setLoading(contactSubmitBtn, false);
+        });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     15. APPLY NOW BUTTONS
+     ------------------------------------------------------------ */
+  const positionSelect = document.getElementById('position');
+  document.querySelectorAll('.apply-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const position = btn.dataset.position || '';
+      if (positionSelect) {
+        positionSelect.value = position;
+        setInvalid(positionSelect, false);
+      }
+      const target = document.getElementById('apply');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(function () {
+        const nameField = document.getElementById('fullName');
+        if (nameField) nameField.focus({ preventScroll: true });
+      }, 600);
+    });
+  });
+
+  /* ------------------------------------------------------------
+     16. FOOTER YEAR
+     ------------------------------------------------------------ */
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+})();
+</script>
+</body>
+</html>

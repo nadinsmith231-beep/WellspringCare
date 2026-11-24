@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#0E7C7B" />
 <title>WellspringCare Hospital</title>
 <meta name="description" content="WellspringCare Hospital combines cutting-edge medical technology with personalized, compassionate care. 24/7 emergency care, cardiology, neurology, surgery, pediatrics and radiology in San Diego, CA." />
@@ -50,10 +50,16 @@
 }
 
 /* ============================================================
-   2. RESET & BASE
+   2. RESET & BASE  +  GLOBAL OVERFLOW GUARD
    ============================================================ */
 *,*::before,*::after{ box-sizing:border-box; }
-html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+  max-width:100%;
+  overflow-x:clip;          /* prevents horizontal pan/blank strip */
+}
 body{
   margin:0;
   font-family:'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -62,6 +68,8 @@ body{
   line-height:1.65;
   font-size:16px;
   -webkit-font-smoothing:antialiased;
+  max-width:100%;
+  overflow-x:clip;          /* belt-and-suspenders against off-canvas drawer */
 }
 body.nav-open{ overflow:hidden; }
 
@@ -102,10 +110,37 @@ input,select,textarea{ font:inherit; color:inherit; }
   pointer-events:none !important;
 }
 
+/* Long unbreakable strings (Teams URLs, emails) can never push the layout wider than its cell */
+.job-note a,
+.warn a,
+.verify-list a,
+.faq__a a,
+.info-panel__item a,
+.contact-card a,
+.footer__contact a,
+.hero__lead{ overflow-wrap:anywhere; word-break:break-word; }
+
 /* ============================================================
    3. LAYOUT HELPERS
    ============================================================ */
 .container{ width:min(100% - 2.5rem, var(--max)); margin-inline:auto; }
+
+/* All direct grid children must be allowed to shrink below their content width */
+.hero__inner > *,
+.hiring__grid > *,
+.about__grid > *,
+.cards-grid > *,
+.care-grid > *,
+.jobs-grid > *,
+.apply-wrap > *,
+.verify-grid > *,
+.contact-grid > *,
+.values-grid > *,
+.stats-band__inner > *,
+.form-grid > *,
+.info-panel > *,
+.footer__grid > *{ min-width:0; }
+
 section{
   padding:clamp(3.5rem, 7vw, 6rem) 0;
   scroll-margin-top:calc(var(--banner-h) + var(--header-h) + 12px);
@@ -130,30 +165,7 @@ section{
 }
 
 /* ============================================================
-   4. ICON GRADIENT UTILITIES
-   ============================================================ */
-.icon-grad-coral  { --tile-a:#FF6B5B; --tile-b:#FF9A6B; }
-.icon-grad-amber  { --tile-a:#FFB020; --tile-b:#FF8A3D; }
-.icon-grad-gold   { --tile-a:#FFB020; --tile-b:#FFD166; }
-.icon-grad-teal   { --tile-a:#0E7C7B; --tile-b:#14B8A6; }
-.icon-grad-sky    { --tile-a:#2F80ED; --tile-b:#7C5CFF; }
-.icon-grad-blue   { --tile-a:#2F80ED; --tile-b:#56A3FF; }
-.icon-grad-violet { --tile-a:#7C5CFF; --tile-b:#A78BFA; }
-.icon-grad-green  { --tile-a:#0B6B3A; --tile-b:#22C55E; }
-.icon-grad-red    { --tile-a:#E14B3A; --tile-b:#FF6B5B; }
-
-/* Shared gradient painter for all icon tiles */
-.icon-tile,
-.value-card__icon,
-.care-card__icon,
-.contact-card__icon,
-.float-card__icon,
-.file-drop__icon{
-  background:linear-gradient(135deg, var(--tile-a, #0E7C7B), var(--tile-b, #14B8A6));
-}
-
-/* ============================================================
-   5. BUTTONS
+   4. BUTTONS
    ============================================================ */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
@@ -192,7 +204,7 @@ section{
 .btn--block{ width:100%; }
 
 /* ============================================================
-   6. NOTICE BANNER
+   5. NOTICE BANNER
    ============================================================ */
 .notice-banner{
   position:sticky; top:0; z-index:110;
@@ -253,7 +265,7 @@ section{
 }
 
 /* ============================================================
-   7. HEADER
+   6. HEADER
    ============================================================ */
 .header{
   position:sticky; top:var(--banner-h); z-index:100;
@@ -319,11 +331,11 @@ section{
 .menu-btn.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
 /* ============================================================
-   8. HERO
+   7. HERO
    ============================================================ */
 .hero{
   position:relative; overflow:hidden;
-  padding:clamp(2.75rem, 5.5vw, 4.5rem) 0 clamp(3rem, 6vw, 5rem);
+  padding:clamp(2.75rem, 5.5vw, 4.5rem) 0 clamp(3.5rem, 7vw, 5.5rem);
   background:
     radial-gradient(900px 520px at 92% -12%, rgba(20,184,166,.24), transparent 62%),
     radial-gradient(760px 460px at 2% 6%, rgba(47,128,237,.16), transparent 62%),
@@ -361,19 +373,10 @@ section{
 .hero__title{ margin-bottom:1.1rem; }
 .hero__lead{ font-size:clamp(1rem, 1.4vw, 1.12rem); color:var(--ink-soft); max-width:56ch; margin-bottom:1.9rem; }
 .hero__cta{ display:flex; flex-wrap:wrap; gap:.8rem; margin-bottom:2.25rem; }
-
-/* --- Aligned trust grid: 3 equal columns, no orphan rows --- */
-.hero__trust{
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:1.75rem;
-  padding-top:1.5rem;
-  border-top:1px dashed rgba(10,42,59,.16);
-}
+.hero__trust{ display:flex; flex-wrap:wrap; gap:1.75rem; padding-top:1.5rem; border-top:1px dashed rgba(10,42,59,.16); }
 .hero__trust div strong{ display:block; font-size:1.32rem; letter-spacing:-.02em; }
 .hero__trust div span{ font-size:.78rem; color:var(--muted); font-weight:600; letter-spacing:.02em; }
 
-/* --- Visual block --- */
 .hero__visual{ position:relative; min-height:470px; }
 
 .hero-card{
@@ -381,11 +384,8 @@ section{
   background:linear-gradient(150deg,#0A5C5B 0%, #0E7C7B 45%, #14B8A6 100%);
   box-shadow:var(--shadow-lg); color:#fff; padding:0;
 }
-/* Art scales smoothly with viewport — no fixed 190px on mobile */
 .hero-card__art{
-  position:relative;
-  height:clamp(140px, 16vw, 190px);
-  overflow:hidden;
+  position:relative; height:190px; overflow:hidden;
   background:radial-gradient(400px 200px at 20% 10%, rgba(255,255,255,.22), transparent 70%);
 }
 .hero-card__art svg{ position:absolute; inset:0; width:100%; height:100%; }
@@ -417,16 +417,15 @@ section{
   box-shadow:var(--shadow); border:1px solid var(--line);
   display:flex; align-items:center; gap:.7rem; z-index:3;
 }
-.float-card__icon{
-  width:38px; height:38px; border-radius:11px; display:grid; place-items:center;
-  flex:none; color:#fff;
-}
+.float-card__icon{ width:38px; height:38px; border-radius:11px; display:grid; place-items:center; flex:none; color:#fff; }
 .float-card__icon svg{ width:19px; height:19px; }
 .float-card strong{ display:block; font-size:1.05rem; line-height:1.1; letter-spacing:-.02em; }
 .float-card span{ font-size:.72rem; color:var(--muted); font-weight:700; }
 
 .float-card--a{ top:8px; left:-26px; animation:floatY 6s ease-in-out infinite; }
+.float-card--a .float-card__icon{ background:linear-gradient(135deg,#FF6B5B,#FF9A6B); }
 .float-card--b{ bottom:6px; right:-22px; animation:floatY 7s ease-in-out infinite .8s; }
+.float-card--b .float-card__icon{ background:linear-gradient(135deg,#2F80ED,#7C5CFF); }
 
 @keyframes floatY{
   0%,100%{ transform:translateY(0); }
@@ -434,7 +433,7 @@ section{
 }
 
 /* ============================================================
-   9. HIRING ALERT BAND
+   8. HIRING ALERT BAND
    ============================================================ */
 .hiring{ padding-top:clamp(2rem, 4vw, 3rem); }
 .hiring__card{
@@ -447,10 +446,12 @@ section{
 .hiring__card::before{
   content:""; position:absolute; width:420px; height:420px; border-radius:50%;
   right:-140px; top:-180px; background:radial-gradient(circle, rgba(20,184,166,.45), transparent 68%);
+  pointer-events:none;
 }
 .hiring__card::after{
   content:""; position:absolute; width:340px; height:340px; border-radius:50%;
   left:-120px; bottom:-180px; background:radial-gradient(circle, rgba(47,128,237,.4), transparent 68%);
+  pointer-events:none;
 }
 .hiring__grid{ position:relative; z-index:2; display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
 .hiring h2{ color:#fff; font-size:clamp(1.5rem, 2.6vw, 2rem); }
@@ -505,12 +506,8 @@ section{
   font-size:.86rem; font-weight:700; color:#fff;
   transition:background .25s, border-color .25s, transform .2s var(--ease);
 }
-.manager-chip__avatar{
-  width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
-  flex:none; font-size:.7rem; font-weight:800; color:#062A2A;
-  background:linear-gradient(135deg,#7CFFC4,#7EE0FF);
-}
 .manager-chip__name{ flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.manager-chip i{ width:28px; height:28px; border-radius:50%; display:grid; place-items:center; flex:none; font-style:normal; font-size:.7rem; font-weight:800; color:#062A2A; background:linear-gradient(135deg,#7CFFC4,#7EE0FF); }
 .manager-chip__status{ flex:none; display:inline-flex; align-items:center; gap:.35rem; font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; padding:.24rem .55rem; border-radius:999px; font-weight:800; white-space:nowrap; }
 .manager-chip__status .dot{ width:6px; height:6px; border-radius:50%; background:currentColor; }
 
@@ -534,20 +531,20 @@ section{
 .warn a{ color:#FFD98A; text-decoration:underline; text-underline-offset:2px; }
 
 /* ============================================================
-   10. ABOUT
+   9. ABOUT
    ============================================================ */
 .about{ background:#fff; }
 .about__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:start; }
 .about__lead{ font-size:1.06rem; color:var(--ink-soft); }
 
-.mini-stats{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1.75rem 0 0; }
-.mini-stat{ background:linear-gradient(160deg,#F2FBFA,#FFFFFF); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow-sm); }
+.mini-stats{ display:flex; gap:1rem; margin:1.75rem 0 0; }
+.mini-stat{ flex:1; background:linear-gradient(160deg,#F2FBFA,#FFFFFF); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow-sm); }
 .mini-stat strong{ display:block; font-size:1.6rem; letter-spacing:-.03em; color:var(--brand-dark); }
 .mini-stat span{ font-size:.78rem; color:var(--muted); font-weight:700; }
 
 .values-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
 .value-card{
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column;                /* equal-height cells */
   background:#fff; border:1px solid var(--line); border-radius:var(--radius);
   padding:1.35rem 1.25rem; box-shadow:var(--shadow-sm);
   transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
@@ -556,10 +553,10 @@ section{
 .value-card::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--brand),var(--brand-light)); opacity:0; transition:opacity .3s; }
 .value-card:hover{ transform:translateY(-5px); box-shadow:var(--shadow); border-color:transparent; }
 .value-card:hover::before{ opacity:1; }
-.value-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; margin-bottom:.9rem; color:#fff; }
+.value-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; margin-bottom:.9rem; color:#fff; flex:none; }
 .value-card__icon svg{ width:21px; height:21px; }
 .value-card h4{ font-size:1rem; margin-bottom:.3rem; }
-.value-card p{ font-size:.86rem; color:var(--muted); margin:0; line-height:1.55; }
+.value-card p{ font-size:.86rem; color:var(--muted); margin:0; line-height:1.55; margin-top:auto; }
 
 .info-panel{ margin-top:2rem; border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line); background:#fff; box-shadow:var(--shadow-sm); display:grid; grid-template-columns:repeat(3,1fr); }
 .info-panel__item{ padding:1.4rem 1.3rem; border-right:1px solid var(--line); }
@@ -570,32 +567,32 @@ section{
 .info-panel__item a:hover{ color:var(--brand-dark); }
 
 /* ============================================================
-   11. SERVICES
+   10. SERVICES
    ============================================================ */
 .services{ background:linear-gradient(180deg,#F5FAFB 0%, #EEF7F9 100%); }
-.cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; }
+.cards-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; align-items:stretch; }
 
 .service-card{
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column;                 /* equal-height cells */
   background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg);
   padding:1.75rem 1.6rem; box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
   transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
 }
-.service-card::after{ content:""; position:absolute; right:-60px; top:-60px; width:150px; height:150px; border-radius:50%; background:var(--glow, rgba(20,184,166,.14)); transition:transform .45s var(--ease); }
+.service-card::after{ content:""; position:absolute; right:-60px; top:-60px; width:150px; height:150px; border-radius:50%; background:var(--glow, rgba(20,184,166,.14)); transition:transform .45s var(--ease); pointer-events:none; }
 .service-card:hover{ transform:translateY(-8px); box-shadow:var(--shadow); border-color:transparent; }
 .service-card:hover::after{ transform:scale(1.5); }
 
-.icon-tile{ width:56px; height:56px; border-radius:17px; display:grid; place-items:center; color:#fff; margin-bottom:1.15rem; position:relative; z-index:2; box-shadow:0 14px 26px -14px var(--tile-a, #0E7C7B); }
+.icon-tile{ width:56px; height:56px; border-radius:17px; display:grid; place-items:center; color:#fff; margin-bottom:1.15rem; position:relative; z-index:2; background:linear-gradient(135deg, var(--tile-a), var(--tile-b)); box-shadow:0 14px 26px -14px var(--tile-a); flex:none; }
 .icon-tile svg{ width:26px; height:26px; }
 
 .service-card h3{ position:relative; z-index:2; margin-bottom:.45rem; }
-.service-card p{ font-size:.92rem; color:var(--muted); margin:0; position:relative; z-index:2; flex:1; }
-.service-card__link{ display:inline-flex; align-items:center; gap:.35rem; margin-top:1.1rem; font-size:.85rem; font-weight:800; color:var(--brand-dark); position:relative; z-index:2; }
+.service-card p{ font-size:.92rem; color:var(--muted); margin:0; position:relative; z-index:2; }
+.service-card__link{ display:inline-flex; align-items:center; gap:.35rem; margin-top:auto; padding-top:1.1rem; font-size:.85rem; font-weight:800; color:var(--brand-dark); position:relative; z-index:2; }
 .service-card__link svg{ width:15px; height:15px; transition:transform .25s; }
 .service-card:hover .service-card__link svg{ transform:translateX(4px); }
 
 /* ============================================================
-   12. STATS BAND
+   11. STATS BAND
    ============================================================ */
 .stats-band{
   padding:clamp(2.5rem,5vw,3.5rem) 0;
@@ -615,13 +612,13 @@ section{
 .stat__label{ font-size:.8rem; letter-spacing:.06em; color:rgba(255,255,255,.7); font-weight:700; }
 
 /* ============================================================
-   13. PATIENT CARE
+   12. PATIENT CARE
    ============================================================ */
 .patient-care{ background:#fff; }
-.care-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; }
+.care-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; align-items:stretch; }
 
 .care-card{
-  display:flex; flex-direction:column;
+  display:flex; flex-direction:column;                 /* equal-height cells */
   position:relative; border-radius:var(--radius-lg); padding:1.7rem 1.6rem 1.75rem;
   background:linear-gradient(170deg,#FBFEFE,#F4FAFB);
   border:1px solid var(--line); overflow:hidden;
@@ -629,16 +626,16 @@ section{
 }
 .care-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); }
 .care-card__num{ position:absolute; right:1.1rem; top:.6rem; font-size:3.4rem; font-weight:800; color:rgba(10,42,59,.05); line-height:1; letter-spacing:-.05em; pointer-events:none; }
-.care-card__icon{ width:46px; height:46px; border-radius:14px; display:grid; place-items:center; color:#fff; margin-bottom:1rem; box-shadow:0 12px 24px -14px var(--tile-a, #0E7C7B); }
+.care-card__icon{ width:46px; height:46px; border-radius:14px; display:grid; place-items:center; color:#fff; margin-bottom:1rem; background:linear-gradient(135deg,var(--tile-a),var(--tile-b)); box-shadow:0 12px 24px -14px var(--tile-a); flex:none; }
 .care-card__icon svg{ width:22px; height:22px; }
 .care-card h3{ font-size:1.05rem; margin-bottom:.4rem; }
-.care-card p{ font-size:.9rem; color:var(--muted); margin:0; }
+.care-card p{ font-size:.9rem; color:var(--muted); margin:0; margin-top:auto; }
 
 /* ============================================================
-   14. CAREERS
+   13. CAREERS
    ============================================================ */
 .careers{ background:linear-gradient(180deg,#FFF8F4 0%, #F5FAFB 45%, #F5FAFB 100%); }
-.jobs-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; margin-bottom:clamp(2.5rem,5vw,4rem); }
+.jobs-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.35rem; margin-bottom:clamp(2.5rem,5vw,4rem); align-items:stretch; }
 
 .job-card{
   display:flex; flex-direction:column; background:#fff; border:1px solid var(--line);
@@ -666,7 +663,7 @@ section{
 }
 .job-note a{ font-weight:800; color:var(--brand-dark); text-decoration:underline; text-underline-offset:2px; display:inline-flex; align-items:center; gap:.25rem; }
 .job-note a:hover{ color:var(--brand); }
-.job-note a svg{ width:13px; height:13px; }
+.job-note a svg{ width:13px; height:13px; flex:none; }
 
 .apply-wrap{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
 .apply-intro h3{ font-size:1.4rem; }
@@ -677,7 +674,7 @@ section{
 
 .form-card{ background:#fff; border:1px solid var(--line); border-radius:var(--radius-lg); padding:clamp(1.5rem,3vw,2.25rem); box-shadow:var(--shadow); }
 .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-.field{ display:flex; flex-direction:column; gap:.4rem; }
+.field{ display:flex; flex-direction:column; gap:.4rem; min-width:0; }
 .field--full{ grid-column:1 / -1; }
 .field label{ font-size:.82rem; font-weight:800; color:var(--ink-soft); letter-spacing:.01em; }
 .field label .req{ color:var(--coral); }
@@ -692,14 +689,14 @@ section{
 .file-drop{ position:relative; display:flex; flex-direction:column; align-items:center; gap:.45rem; border:2px dashed var(--line); border-radius:14px; padding:1.35rem 1rem; background:#FBFDFD; text-align:center; cursor:pointer; transition:border-color .25s, background .25s; }
 .file-drop:hover{ border-color:var(--brand-light); background:#F3FBFA; }
 .file-drop input[type="file"]{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
-.file-drop__icon{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; color:#fff; }
+.file-drop__icon{ width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:linear-gradient(135deg,var(--brand),var(--brand-light)); color:#fff; }
 .file-drop__icon svg{ width:20px; height:20px; }
 .file-drop strong{ font-size:.9rem; }
 .file-drop span{ font-size:.78rem; color:var(--muted); }
 .file-name{ font-size:.8rem; font-weight:800; color:var(--brand-dark); }
 
 /* ============================================================
-   15. FAQ
+   14. FAQ
    ============================================================ */
 .faq{ max-width:820px; margin-inline:auto; display:grid; gap:.75rem; }
 .faq__item{ background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; transition:box-shadow .3s, border-color .3s; }
@@ -717,7 +714,7 @@ section{
 .faq__a a{ color:var(--brand-dark); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
 
 /* ============================================================
-   16. VERIFICATION
+   15. VERIFICATION
    ============================================================ */
 .verification{
   background:
@@ -740,7 +737,7 @@ section{
 .verify-list li a{ color:#7CFFC4; text-decoration:underline; }
 
 /* ============================================================
-   17. CONTACT
+   16. CONTACT
    ============================================================ */
 .contact{ background:#fff; }
 .contact-grid{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.75rem,4vw,3rem); align-items:start; }
@@ -748,7 +745,7 @@ section{
 .contact-info{ display:grid; gap:1rem; }
 .contact-card{ display:flex; gap:1rem; align-items:flex-start; background:linear-gradient(160deg,#F7FCFC,#FFFFFF); border:1px solid var(--line); border-radius:var(--radius); padding:1.25rem 1.3rem; box-shadow:var(--shadow-sm); transition:transform .3s var(--ease), box-shadow .3s; }
 .contact-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
-.contact-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; flex:none; color:#fff; box-shadow:0 12px 22px -14px var(--tile-a, #0E7C7B); }
+.contact-card__icon{ width:44px; height:44px; border-radius:13px; display:grid; place-items:center; flex:none; color:#fff; background:linear-gradient(135deg,var(--tile-a,#0E7C7B),var(--tile-b,#14B8A6)); box-shadow:0 12px 22px -14px var(--tile-a,#0E7C7B); }
 .contact-card__icon svg{ width:21px; height:21px; }
 .contact-card h4{ font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.35rem; }
 .contact-card p, .contact-card a{ font-size:.92rem; color:var(--ink-soft); margin:0; line-height:1.6; }
@@ -765,7 +762,7 @@ section{
 .checkbox-row a{ color:var(--brand-dark); font-weight:700; text-decoration:underline; text-underline-offset:2px; }
 
 /* ============================================================
-   18. FOOTER
+   17. FOOTER
    ============================================================ */
 .footer{ background:linear-gradient(180deg,#08222F 0%, #061A24 100%); color:rgba(255,255,255,.7); padding:clamp(3rem,6vw,4.5rem) 0 0; }
 .footer__grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:clamp(1.75rem,4vw,3rem); }
@@ -788,25 +785,34 @@ section{
 .footer__legal a:hover{ color:#7CFFC4; }
 
 /* ============================================================
-   19. TOAST
+   18. TOAST
    ============================================================ */
-.toast{ position:fixed; right:1.25rem; bottom:1.25rem; z-index:300; max-width:360px; padding:1rem 1.2rem; border-radius:14px; background:var(--ink); color:#fff; font-size:.88rem; font-weight:600; line-height:1.5; box-shadow:0 26px 50px -20px rgba(0,0,0,.7); transform:translateY(150%); opacity:0; pointer-events:none; transition:transform .45s var(--ease), opacity .35s; }
+.toast{
+  position:fixed; right:1.25rem; bottom:1.25rem; z-index:300;
+  max-width:360px;
+  padding:1rem 1.2rem; border-radius:14px;
+  background:var(--ink); color:#fff; font-size:.88rem; font-weight:600; line-height:1.5;
+  box-shadow:0 26px 50px -20px rgba(0,0,0,.7);
+  transform:translateY(150%); opacity:0; pointer-events:none;
+  transition:transform .45s var(--ease), opacity .35s;
+}
 .toast.show{ transform:translateY(0); opacity:1; }
 .toast--ok{ background:linear-gradient(135deg,#0E7C7B,#14B8A6); }
 .toast--bad{ background:linear-gradient(135deg,#B42318,#E14B3A); }
 
 /* ============================================================
-   20. REVEAL
+   19. REVEAL
    ============================================================ */
 .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .reveal.is-in{ opacity:1; transform:none; }
 
 /* ============================================================
-   21. RESPONSIVE
+   20. RESPONSIVE
    ============================================================ */
 @media (min-width:1440px){
   :root{ --max:1280px; }
   .hero__visual{ min-height:520px; }
+  .hero-card__art{ height:210px; }
 }
 
 @media (max-width:1199px){
@@ -814,45 +820,55 @@ section{
   .nav__link{ padding:.5rem .6rem; font-size:.86rem; }
 }
 
+/* ── MOBILE NAV DRAWER (the critical fix) ───────────────────── */
 @media (max-width:1023px){
   :root{ --header-h:68px; }
   .header__divider{ display:none; }
   .menu-btn{ display:flex; }
 
   .nav{
-    position:absolute; top:100%; right:0; width:var(--drawer-w);
-    height:calc(100vh - var(--banner-h) - var(--header-h));
-    max-height:calc(100vh - var(--banner-h) - var(--header-h));
+    position:absolute;
+    top:100%; right:0;
+    width:var(--drawer-w);
+    height:calc(100vh  - var(--banner-h) - var(--header-h));
+    height:calc(100dvh - var(--banner-h) - var(--header-h));
+    max-height:calc(100vh  - var(--banner-h) - var(--header-h));
+    max-height:calc(100dvh - var(--banner-h) - var(--header-h));
     background:#fff; border-left:1px solid var(--line);
     box-shadow:-30px 30px 60px -30px rgba(10,42,59,.35);
     padding:1.1rem 1.1rem 2rem; overflow-y:auto;
     -webkit-overflow-scrolling:touch;
-    transform:translateX(105%); opacity:0; pointer-events:none;
-    transition:transform .35s var(--ease), opacity .25s;
+    transform:translateX(100%);       /* exactly its own width — not 105% */
+    visibility:hidden;                /* removes from focus order AND scroll space */
+    opacity:0;
+    pointer-events:none;
+    transition:transform .35s var(--ease), opacity .25s, visibility 0s .35s;
   }
-  .nav.is-open{ transform:translateX(0); opacity:1; pointer-events:auto; }
+  .nav.is-open{
+    transform:translateX(0);
+    visibility:visible;
+    opacity:1;
+    pointer-events:auto;
+    transition:transform .35s var(--ease), opacity .25s, visibility 0s 0s;
+  }
   .nav__list{ flex-direction:column; align-items:stretch; gap:.2rem; }
   .nav__link{ padding:.85rem 1rem; font-size:.98rem; border-radius:12px; }
 
-  body.nav-open::after{ content:""; position:fixed; inset:calc(var(--banner-h) + var(--header-h)) 0 0 0; background:rgba(10,42,59,.45); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px); z-index:50; pointer-events:none; animation:backdropFade .3s var(--ease); }
+  /* backdrop — captures outside clicks (see JS) */
+  body.nav-open::after{
+    content:"";
+    position:fixed;
+    inset:calc(var(--banner-h) + var(--header-h)) 0 0 0;
+    background:rgba(10,42,59,.45);
+    -webkit-backdrop-filter:blur(2px);
+    backdrop-filter:blur(2px);
+    z-index:50;
+    pointer-events:auto;              /* was none — now blocks clicks on page behind */
+    animation:backdropFade .3s var(--ease);
+  }
 
-  /* ---- HERO: float cards flow into normal layout, no dead padding ---- */
   .hero__inner{ grid-template-columns:1fr; }
-  .hero__visual{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:1rem;
-    min-height:0;
-    margin:0;
-  }
-  .hero-card{ grid-column:1 / -1; }
-  .float-card{
-    position:static;
-    top:auto; left:auto; right:auto; bottom:auto;
-    animation:none !important;
-    width:100%;
-    padding:1rem 1.05rem;
-  }
+  .hero__visual{ min-height:0; margin-top:2rem; }
 
   .about__grid,
   .hiring__grid,
@@ -863,6 +879,9 @@ section{
   .info-panel{ grid-template-columns:1fr; }
   .info-panel__item{ border-right:0; border-bottom:1px solid var(--line); }
   .info-panel__item:last-child{ border-bottom:0; }
+
+  .float-card--a{ top:-14px; left:auto; right:8px; }
+  .float-card--b{ bottom:-16px; right:8px; }
 }
 
 @media (max-width:899px){
@@ -874,29 +893,46 @@ section{
   .form-grid{ grid-template-columns:1fr; }
 }
 
+/* ── TIGHTER MOBILE RHYTHM — kills the "large empty spacing" ── */
 @media (max-width:767px){
   :root{ --header-h:64px; }
-  .hero{ padding-top:2rem; }
+
+  section{ padding:clamp(2rem, 5vw, 3rem) 0; }
+
+  .section-head{ margin-bottom:1.75rem; }
+  .section-head p{ font-size:.96rem; }
+
+  .hero{ padding:2rem 0 2.5rem; }
   .hero__title{ font-size:clamp(1.9rem, 6.5vw, 2.6rem); }
-  .hero__lead{ font-size:1rem; }
-  .hero__trust{ gap:1.25rem; padding-top:1.25rem; }
-  .hero__trust div strong{ font-size:1.18rem; }
+  .hero__lead{ font-size:.98rem; margin-bottom:1.35rem; }
+  .hero__cta{ margin-bottom:1.5rem; }
+  .hero__trust{ gap:1rem 1.25rem; padding-top:1.25rem; }
+  .hero__trust div strong{ font-size:1.15rem; }
+  .hero__visual{ margin-top:1.25rem; }
+  .hero-card__art{ height:150px; }
+
   .footer__bottom{ flex-direction:column; align-items:flex-start; gap:.75rem; }
   .notice-banner__item{ font-size:.78rem; padding-right:2.5rem; }
+
+  /* Cards keep equal heights — no more half-empty rows */
+  .cards-grid,
+  .care-grid,
+  .jobs-grid,
+  .values-grid{ align-items:stretch; }
 }
 
 @media (max-width:599px){
   :root{ --header-h:62px; --banner-h:44px; }
+
   .container{ width:min(100% - 1.75rem, var(--max)); }
-  section{ padding:clamp(2.5rem, 8vw, 4rem) 0; }
+  section{ padding:clamp(1.75rem, 5vw, 2.75rem) 0; }
 
   .cards-grid,
   .care-grid,
   .jobs-grid,
   .values-grid{ grid-template-columns:1fr; }
   .form-grid{ grid-template-columns:1fr; }
-
-  .mini-stats{ grid-template-columns:1fr; }
+  .mini-stats{ flex-direction:column; }
   .hiring__actions .btn{ width:100%; }
   .code-box__row{ flex-direction:column; align-items:flex-start; gap:.5rem; }
   .hero__cta{ flex-direction:column; }
@@ -907,12 +943,22 @@ section{
   .notice-banner__label span{ display:none; }
   .notice-banner__label{ padding:0 .8rem; }
 
+  .float-card{ padding:.7rem .85rem; }
+  .float-card strong{ font-size:.95rem; }
+  .float-card span{ font-size:.66rem; }
+  .float-card--a{ top:-10px; right:-6px; left:auto; }
+  .float-card--b{ bottom:-12px; right:-6px; }
+
   .manager-chip{ font-size:.82rem; }
   .manager-chip__status{ font-size:.58rem; padding:.22rem .45rem; }
+
+  /* Toast can never overflow on narrow screens */
+  .toast{ max-width:calc(100vw - 2rem); right:1rem; bottom:1rem; }
 }
 
 @media (max-width:479px){
   :root{ --header-h:60px; --banner-h:42px; }
+
   .brand__text small{ display:none; }
   .brand__mark{ width:38px; height:38px; border-radius:11px; }
   .brand__mark svg{ width:20px; height:20px; }
@@ -925,18 +971,7 @@ section{
 
   .hero__badges{ gap:.4rem; }
   .chip{ font-size:.72rem; padding:.35rem .7rem; }
-
-  /* ---- Hero: stack hero card + float cards, all in-flow ---- */
-  .hero__visual{ grid-template-columns:1fr; gap:.75rem; }
-  .float-card{ padding:.85rem 1rem; }
-  .float-card strong{ font-size:.95rem; }
-  .float-card span{ font-size:.68rem; }
-
-  /* ---- Aligned trust grid: 3 equal columns, labels wrap cleanly ---- */
-  .hero__trust{ gap:.75rem; padding-top:1rem; text-align:center; }
-  .hero__trust div strong{ font-size:1.08rem; }
-  .hero__trust div span{ font-size:.7rem; line-height:1.25; display:block; }
-
+  .hero__trust div{ flex:1 0 40%; }
   .code-box strong{ font-size:1.35rem; letter-spacing:.1em; }
   .code-box__label{ font-size:.66rem; }
   .section-head h2{ font-size:clamp(1.5rem, 6vw, 2rem); }
@@ -951,21 +986,23 @@ section{
   .brand__text strong{ font-size:.92rem; }
   .header__cta{ display:none; }
   .menu-btn{ width:40px; height:40px; border-radius:10px; }
-
   .hero__badges .chip:nth-child(3){ display:none; }
   .hero__title{ font-size:1.65rem; }
-
   .stats-band__inner{ grid-template-columns:1fr; gap:1.5rem; }
   .mini-stat{ padding:.9rem 1rem; }
   .mini-stat strong{ font-size:1.35rem; }
-
-  /* Floats stay visible (in-flow now, no overflow risk) */
+  .float-card{ display:none; }
   .manager-chip{ flex-wrap:wrap; gap:.35rem; }
   .manager-chip__arrow{ display:none; }
 }
 
 @media (max-height:520px) and (orientation:landscape) and (max-width:1023px){
-  .nav{ height:calc(100vh - var(--header-h) - var(--banner-h)); max-height:calc(100vh - var(--header-h) - var(--banner-h)); }
+  .nav{
+    height:calc(100vh  - var(--header-h) - var(--banner-h));
+    height:calc(100dvh - var(--header-h) - var(--banner-h));
+    max-height:calc(100vh  - var(--header-h) - var(--banner-h));
+    max-height:calc(100dvh - var(--header-h) - var(--banner-h));
+  }
 }
 
 @media (hover:none) and (pointer:coarse){
@@ -1141,14 +1178,14 @@ section{
         </div>
 
         <div class="float-card float-card--a">
-          <span class="float-card__icon icon-grad-coral" aria-hidden="true">
+          <span class="float-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
           </span>
           <div><strong>98%</strong><span>Patient Satisfaction</span></div>
         </div>
 
         <div class="float-card float-card--b">
-          <span class="float-card__icon icon-grad-sky" aria-hidden="true">
+          <span class="float-card__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>
           </span>
           <div><strong>500+</strong><span>Medical Professionals</span></div>
@@ -1220,7 +1257,7 @@ section{
               <a class="manager-chip manager-chip--available"
                  href="https://teams.live.com/l/invite/FEAi9eUkjQ3QD2vMQ?v=g1"
                  target="_blank" rel="noopener noreferrer">
-                <span class="manager-chip__avatar" aria-hidden="true">RZ</span>
+                <i aria-hidden="true">RZ</i>
                 <span class="manager-chip__name">Robert Zilkoski</span>
                 <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Available</span>
                 <svg class="manager-chip__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
@@ -1229,14 +1266,14 @@ section{
               <a class="manager-chip manager-chip--available"
                  href="https://teams.live.com/l/invite/FEA3fhVy_tx8BI9tQ?v=g1"
                  target="_blank" rel="noopener noreferrer">
-                <span class="manager-chip__avatar" aria-hidden="true">CB</span>
+                <i aria-hidden="true">CB</i>
                 <span class="manager-chip__name">Carla Bates</span>
                 <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Available</span>
                 <svg class="manager-chip__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
               </a>
 
               <span class="manager-chip manager-chip--busy" aria-disabled="true">
-                <span class="manager-chip__avatar" aria-hidden="true">SG</span>
+                <i aria-hidden="true">SG</i>
                 <span class="manager-chip__name">Sonnie Griswold</span>
                 <span class="manager-chip__status"><span class="dot" aria-hidden="true"></span>Occupied</span>
               </span>
@@ -1324,7 +1361,7 @@ section{
           <h3 style="margin-bottom:1.1rem;">Our Values</h3>
           <div class="values-grid stagger">
             <div class="value-card">
-              <div class="value-card__icon icon-grad-coral">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#FF6B5B,#FF9A6B)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
               </div>
               <h4>Compassion</h4>
@@ -1332,7 +1369,7 @@ section{
             </div>
 
             <div class="value-card">
-              <div class="value-card__icon icon-grad-amber">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#FFB020,#FF8A3D)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9z"/></svg>
               </div>
               <h4>Excellence</h4>
@@ -1340,7 +1377,7 @@ section{
             </div>
 
             <div class="value-card">
-              <div class="value-card__icon icon-grad-teal">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#0E7C7B,#14B8A6)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
               </div>
               <h4>Integrity</h4>
@@ -1348,7 +1385,7 @@ section{
             </div>
 
             <div class="value-card">
-              <div class="value-card__icon icon-grad-sky">
+              <div class="value-card__icon" style="background:linear-gradient(135deg,#2F80ED,#7C5CFF)">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2z"/></svg>
               </div>
               <h4>Innovation</h4>
@@ -1374,7 +1411,7 @@ section{
 
       <div class="cards-grid stagger">
         <article class="service-card" style="--glow:rgba(255,107,91,.16)">
-          <div class="icon-tile icon-grad-coral">
+          <div class="icon-tile" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
           </div>
           <h3>Cardiology</h3>
@@ -1385,7 +1422,7 @@ section{
         </article>
 
         <article class="service-card" style="--glow:rgba(124,92,255,.16)">
-          <div class="icon-tile icon-grad-violet">
+          <div class="icon-tile" style="--tile-a:#7C5CFF;--tile-b:#A78BFA">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l3-8 4 16 3-8h6"/></svg>
           </div>
           <h3>Neurology</h3>
@@ -1396,7 +1433,7 @@ section{
         </article>
 
         <article class="service-card" style="--glow:rgba(47,128,237,.16)">
-          <div class="icon-tile icon-grad-blue">
+          <div class="icon-tile" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/></svg>
           </div>
           <h3>Surgery</h3>
@@ -1407,7 +1444,7 @@ section{
         </article>
 
         <article class="service-card" style="--glow:rgba(255,176,32,.18)">
-          <div class="icon-tile icon-grad-gold">
+          <div class="icon-tile" style="--tile-a:#FFB020;--tile-b:#FFD166">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8.5 14.5a5 5 0 0 0 7 0"/></svg>
           </div>
           <h3>Pediatrics</h3>
@@ -1418,7 +1455,7 @@ section{
         </article>
 
         <article class="service-card" style="--glow:rgba(255,107,91,.18)">
-          <div class="icon-tile icon-grad-red">
+          <div class="icon-tile" style="--tile-a:#E14B3A;--tile-b:#FF6B5B">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
           </div>
           <h3>Emergency Care</h3>
@@ -1429,7 +1466,7 @@ section{
         </article>
 
         <article class="service-card" style="--glow:rgba(20,184,166,.18)">
-          <div class="icon-tile icon-grad-teal">
+          <div class="icon-tile" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
           </div>
           <h3>Radiology</h3>
@@ -1476,7 +1513,7 @@ section{
       <div class="care-grid stagger">
         <article class="care-card">
           <span class="care-card__num">01</span>
-          <div class="care-card__icon icon-grad-teal">
+          <div class="care-card__icon" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11h6M12 8v6"/><path d="M4 4h16v16H4z"/></svg>
           </div>
           <h3>Personalized Treatment Plans</h3>
@@ -1485,7 +1522,7 @@ section{
 
         <article class="care-card">
           <span class="care-card__num">02</span>
-          <div class="care-card__icon icon-grad-blue">
+          <div class="care-card__icon" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           </div>
           <h3>24/7 Monitoring</h3>
@@ -1494,7 +1531,7 @@ section{
 
         <article class="care-card">
           <span class="care-card__num">03</span>
-          <div class="care-card__icon icon-grad-coral">
+          <div class="care-card__icon" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9"/></svg>
           </div>
           <h3>Family-Centered Care</h3>
@@ -1503,7 +1540,7 @@ section{
 
         <article class="care-card">
           <span class="care-card__num">04</span>
-          <div class="care-card__icon icon-grad-green">
+          <div class="care-card__icon" style="--tile-a:#0B6B3A;--tile-b:#22C55E">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
           </div>
           <h3>Safety First</h3>
@@ -1512,7 +1549,7 @@ section{
 
         <article class="care-card">
           <span class="care-card__num">05</span>
-          <div class="care-card__icon icon-grad-violet">
+          <div class="care-card__icon" style="--tile-a:#7C5CFF;--tile-b:#A78BFA">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <h3>Clear Communication</h3>
@@ -1521,7 +1558,7 @@ section{
 
         <article class="care-card">
           <span class="care-card__num">06</span>
-          <div class="care-card__icon icon-grad-gold">
+          <div class="care-card__icon" style="--tile-a:#FFB020;--tile-b:#FFD166">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/></svg>
           </div>
           <h3>Comfortable Environment</h3>
@@ -1717,7 +1754,7 @@ section{
                 <div class="file-drop">
                   <input type="file" id="resume" name="resume" required
                          accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp" />
-                  <div class="file-drop__icon icon-grad-teal" aria-hidden="true">
+                  <div class="file-drop__icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5-5 5 5M12 5v12"/></svg>
                   </div>
                   <strong>Choose file</strong>
@@ -1962,7 +1999,7 @@ section{
           </div>
 
           <div class="contact-card">
-            <div class="contact-card__icon icon-grad-teal">
+            <div class="contact-card__icon" style="--tile-a:#0E7C7B;--tile-b:#14B8A6">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
@@ -1972,7 +2009,7 @@ section{
           </div>
 
           <div class="contact-card">
-            <div class="contact-card__icon icon-grad-coral">
+            <div class="contact-card__icon" style="--tile-a:#FF6B5B;--tile-b:#FF9A6B">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
             </div>
             <div>
@@ -1982,7 +2019,7 @@ section{
           </div>
 
           <div class="contact-card">
-            <div class="contact-card__icon icon-grad-blue">
+            <div class="contact-card__icon" style="--tile-a:#2F80ED;--tile-b:#56A3FF">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="m4 7 8 6 8-6"/></svg>
             </div>
             <div>
@@ -1992,7 +2029,7 @@ section{
           </div>
 
           <div class="contact-card">
-            <div class="contact-card__icon icon-grad-gold">
+            <div class="contact-card__icon" style="--tile-a:#FFB020;--tile-b:#FFD166">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
             </div>
             <div>
@@ -2106,13 +2143,20 @@ section{
     document.body.classList.remove('nav-open');
   }
 
+  function openMenu() {
+    if (!nav || !menuBtn) return;
+    nav.classList.add('is-open');
+    menuBtn.classList.add('is-open');
+    menuBtn.setAttribute('aria-expanded', 'true');
+    menuBtn.setAttribute('aria-label', 'Close menu');
+    document.body.classList.add('nav-open');
+  }
+
   if (menuBtn && nav) {
-    menuBtn.addEventListener('click', function () {
-      const open = nav.classList.toggle('is-open');
-      menuBtn.classList.toggle('is-open', open);
-      menuBtn.setAttribute('aria-expanded', String(open));
-      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      document.body.classList.toggle('nav-open', open);
+    menuBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const open = !nav.classList.contains('is-open');
+      if (open) openMenu(); else closeMenu();
     });
 
     nav.querySelectorAll('a').forEach(function (link) {
@@ -2122,6 +2166,25 @@ section{
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeMenu();
     });
+
+    /* Close menu when clicking anywhere outside the drawer/menu-button
+       — the backdrop pseudo-element captures those clicks on body, so
+       e.target will be <body>, which is not inside nav or menuBtn. */
+    document.addEventListener('click', function (e) {
+      if (!document.body.classList.contains('nav-open')) return;
+      const t = e.target;
+      if (t === menuBtn || menuBtn.contains(t)) return;
+      if (t === nav    || nav.contains(t))      return;
+      closeMenu();
+    });
+
+    /* Reset menu state when crossing back to desktop */
+    let lastWasMobile = window.innerWidth <= 1023;
+    window.addEventListener('resize', function () {
+      const isMobile = window.innerWidth <= 1023;
+      if (lastWasMobile && !isMobile) closeMenu();
+      lastWasMobile = isMobile;
+    }, { passive: true });
   }
 
   /* ------------------------------------------------------------
@@ -2187,8 +2250,11 @@ section{
   }
 
   /* ------------------------------------------------------------
-     5. ANIMATED COUNTERS
+     5. ANIMATED COUNTERS  (respects prefers-reduced-motion)
      ------------------------------------------------------------ */
+  const prefersReducedMotion =
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function animateCount(el) {
     const target   = parseFloat(el.dataset.count || '0');
     const suffix   = el.dataset.suffix || '';
@@ -2206,7 +2272,12 @@ section{
   }
 
   const counters = document.querySelectorAll('.stat__num');
-  if ('IntersectionObserver' in window && counters.length) {
+
+  if (prefersReducedMotion) {
+    counters.forEach(function (c) {
+      c.textContent = Number(c.dataset.count).toLocaleString('en-US') + (c.dataset.suffix || '');
+    });
+  } else if ('IntersectionObserver' in window && counters.length) {
     const countObs = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -2270,7 +2341,6 @@ section{
      ------------------------------------------------------------ */
   function setLoading(btn, loading, label) {
     if (!btn) return;
-
     if (loading) {
       if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
       btn.disabled = true;
@@ -2609,6 +2679,5 @@ section{
 
 })();
 </script>
-
 </body>
 </html>
